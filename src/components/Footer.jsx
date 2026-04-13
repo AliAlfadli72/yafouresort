@@ -1,116 +1,106 @@
 import { Link } from "react-router-dom";
+import { Icon } from "@iconify/react";
 
 export default function Footer({ lang }) {
   const isArabic = lang === "ar";
 
   const t = {
     address: isArabic
-      ? "1224 شارع سكاي لاين\nدبي، الإمارات العربية المتحدة\n+971 4 000 0000"
-      : "1224 Skyline Boulevard\nDubai, United Arab Emirates\n+971 4 000 0000",
-
-    navigate: isArabic ? "التصفح" : "Navigate",
-    suites: isArabic ? "الأجنحة" : "The Suites",
-    dining: isArabic ? "المطاعم" : "Gastronomy",
-    spa: isArabic ? "السبا" : "Wellness Spa",
-    events: isArabic ? "الفعاليات الخاصة" : "Private Events",
-
-    connect: isArabic ? "تواصل" : "Connect",
-
+      ? "منتجع وفندق يعفور\nطريق بيروت دمشق الدولي، يعفور\nدمشق، ريف دمشق، سوريا\n+963 11 000 0000"
+      : "Yafour Hotel & Resort\nBeirut-Damascus Highway, Yafour\nDamascus, Syria\n+963 11 000 0000",
+    navigate: isArabic ? "تصفح الموقع" : "Navigate",
+    menu: [
+      { nameAr: "من نحن", nameEn: "About Us", path: "/about" },
+      { nameAr: "الخدمات", nameEn: "Services", path: "/services" },
+      { nameAr: "الغرف", nameEn: "Rooms", path: "/rooms" },
+      { nameAr: "اتصل بنا", nameEn: "Contact", path: "/contact" }
+    ],
+    connect: isArabic ? "تواصل معنا" : "Connect",
     newsletter: isArabic ? "النشرة البريدية" : "Newsletter",
+    newsletterDesc: isArabic ? "اشترك لتصلك أحدث عروض الفخامة في يعفور." : "Subscribe to receive the latest luxury offers.",
     email: isArabic ? "البريد الإلكتروني" : "Email Address",
-    join: isArabic ? "انضم" : "Join",
-
+    join: isArabic ? "اشتراك" : "Subscribe",
     rights: isArabic
-      ? "© 2026 أزور كراون العالمية. جميع الحقوق محفوظة."
-      : "© 2026 Azure Crown International. All Rights Reserved.",
-
+      ? "© 2026 فندق ومنتجع يعفور. جميع الحقوق محفوظة."
+      : "© 2026 Yafour Hotel & Resort. All Rights Reserved.",
     privacy: isArabic ? "سياسة الخصوصية" : "Privacy Policy",
     terms: isArabic ? "الشروط والأحكام" : "Terms",
   };
 
   return (
-    <footer className="bg-[#0a0a0a] text-white pt-32 pb-16 px-6 md:px-12">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-16 mb-32">
+    <footer className="bg-ivory-200 text-charcoal-800 pt-32 pb-16 px-6 md:px-12 border-t border-gold-500/10">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-16 mb-24">
 
         {/* Logo & Address */}
         <div className="md:col-span-1">
-          <h3 className="text-3xl tracking-[0.4em] font-serif italic mb-10">
-            AZURE
+          <h3 className="text-3xl font-heading font-bold flex items-center gap-2 mb-8 text-green-700">
+            <Icon icon="mdi:leaf" className="text-gold-500" />
+            YAFOUR
           </h3>
-
-          <p className="text-gray-500 text-[11px] leading-loose tracking-[0.2em] uppercase whitespace-pre-line">
+          <p className="text-charcoal-800/70 text-sm leading-relaxed font-body whitespace-pre-line">
             {t.address}
           </p>
         </div>
 
         {/* Navigate */}
         <div>
-          <h4 className="text-[10px] uppercase tracking-[0.4em] text-[#C5A358] mb-10 font-bold">
+          <h4 className="text-sm uppercase tracking-widest text-gold-600 mb-8 font-bold border-b border-gold-500/20 pb-4 inline-block">
             {t.navigate}
           </h4>
-
-          <ul className="space-y-5 text-[11px] text-gray-500 uppercase tracking-widest">
-            <li>
-              <Link to="/rooms" className="hover:text-white transition">
-                {t.suites}
-              </Link>
-            </li>
-            <li>
-              <Link to="/dining" className="hover:text-white transition">
-                {t.dining}
-              </Link>
-            </li>
-            <li>
-              <Link to="/spa" className="hover:text-white transition">
-                {t.spa}
-              </Link>
-            </li>
-            <li>
-              <Link to="/events" className="hover:text-white transition">
-                {t.events}
-              </Link>
-            </li>
+          <ul className="space-y-4 text-sm font-semibold text-charcoal-800/80">
+            {t.menu.map((item, idx) => (
+              <li key={idx}>
+                <Link to={item.path} className="hover:text-green-600 flex items-center gap-2 transition">
+                  <Icon icon={isArabic ? "mdi:chevron-left" : "mdi:chevron-right"} className="text-gold-500" />
+                  {isArabic ? item.nameAr : item.nameEn}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
 
         {/* Connect */}
         <div>
-          <h4 className="text-[10px] uppercase tracking-[0.4em] text-[#C5A358] mb-10 font-bold">
+          <h4 className="text-sm uppercase tracking-widest text-gold-600 mb-8 font-bold border-b border-gold-500/20 pb-4 inline-block">
             {t.connect}
           </h4>
-
-          <ul className="space-y-5 text-[11px] text-gray-500 uppercase tracking-widest">
+          <ul className="space-y-4 text-sm font-semibold text-charcoal-800/80">
             <li>
-              <Link to="#" className="hover:text-white transition">
+              <a href="#" className="hover:text-green-600 flex items-center gap-2 transition">
+                <Icon icon="mdi:instagram" className="text-xl text-gold-500" />
                 Instagram
-              </Link>
+              </a>
             </li>
             <li>
-              <Link to="#" className="hover:text-white transition">
-                LinkedIn
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="hover:text-white transition">
+              <a href="#" className="hover:text-green-600 flex items-center gap-2 transition">
+                <Icon icon="mdi:facebook" className="text-xl text-gold-500" />
                 Facebook
-              </Link>
+              </a>
+            </li>
+            <li>
+              <a href="#" className="hover:text-green-600 flex items-center gap-2 transition">
+                <Icon icon="mdi:linkedin" className="text-xl text-gold-500" />
+                LinkedIn
+              </a>
             </li>
           </ul>
         </div>
 
         {/* Newsletter */}
         <div>
-          <h4 className="text-[10px] uppercase tracking-[0.4em] text-[#C5A358] mb-10 font-bold">
+          <h4 className="text-sm uppercase tracking-widest text-gold-600 mb-8 font-bold border-b border-gold-500/20 pb-4 inline-block">
             {t.newsletter}
           </h4>
-
-          <div className="flex border-b border-white/20 pb-4">
+          <p className="text-sm text-charcoal-800/70 mb-6">
+            {t.newsletterDesc}
+          </p>
+          <div className="flex border border-gold-500/30 rounded-full overflow-hidden bg-white">
             <input
               type="email"
-              placeholder={t.email.toUpperCase()}
-              className="bg-transparent text-[10px] w-full outline-none tracking-widest"
+              placeholder={t.email}
+              className="bg-transparent text-sm w-full outline-none px-4 py-3 placeholder:text-gray-400"
             />
-            <button className="text-[10px] uppercase tracking-[0.3em] ml-4 hover:text-[#C5A358] transition">
+            <button className="bg-green-600 text-white text-sm font-bold px-6 hover:bg-green-700 transition">
               {t.join}
             </button>
           </div>
@@ -118,16 +108,15 @@ export default function Footer({ lang }) {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-white/5 pt-12 flex flex-col md:flex-row justify-between items-center gap-8 opacity-50">
-        <p className="text-[9px] tracking-[0.3em] uppercase">
+      <div className="max-w-7xl mx-auto border-t border-gold-500/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 opacity-80">
+        <p className="text-sm font-bold text-green-700">
           {t.rights}
         </p>
-
-        <div className="flex gap-10 text-[9px] tracking-[0.3em] uppercase">
-          <Link to="/privacy" className="hover:text-white transition">
+        <div className="flex gap-8 text-sm font-semibold">
+          <Link to="/privacy" className="hover:text-gold-600 transition">
             {t.privacy}
           </Link>
-          <Link to="/terms" className="hover:text-white transition">
+          <Link to="/terms" className="hover:text-gold-600 transition">
             {t.terms}
           </Link>
         </div>

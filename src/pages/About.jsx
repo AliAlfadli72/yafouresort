@@ -16,169 +16,155 @@ export default function About({ lang }) {
   const isArabic = lang === "ar";
 
   const t = {
-    heroTitle: isArabic ? "جوهر أزور كراون" : "The Azure Legacy",
+    heroTitle: isArabic ? "قصة يعفور" : "The Yafour Story",
     heroSubtitle: isArabic
-      ? "وجهة فاخرة تعكس جوهر الضيافة الراقية في دبي."
-      : "A sanctuary of refined living, where the golden sands meet architectural avant-garde.",
-    storyTitle: isArabic ? "النشأة والرؤية" : "Genesis & Vision",
-    designTitle: isArabic ? "الهندسة الجمالية" : "Aesthetic Geometry",
-    valuesTitle: isArabic ? "دستور الضيافة" : "The Pillars of Azure",
-    signature: isArabic ? "التوقيع" : "The Signature",
+      ? "وجهة استثنائية تعكس عراقة الضيافة السورية بين أحضان الطبيعة."
+      : "An exceptional destination reflecting the prestige of Syrian hospitality amidst nature.",
+    storyTitle: isArabic ? "حيث تلتقي الأصالة بالحاضر" : "Where Heritage Meets the Present",
+    designTitle: isArabic ? "التناغم مع الطبيعة" : "Harmony with Nature",
+    valuesTitle: isArabic ? "قيمنا الأساسية" : "Our Core Values",
   };
 
   return (
-    <div className={`bg-[#fcfaf7] text-[#1a1a1a] ${isArabic ? "font-serif-ar" : ""}`} dir={isArabic ? "rtl" : "ltr"}>
+    <div className={`bg-ivory-200 text-charcoal-800 antialiased min-h-screen ${isArabic ? "font-serif-ar" : "font-sans"}`} dir={isArabic ? "rtl" : "ltr"}>
 
-      {/* ================= HERO (Wide & Grand) ================= */}
+      {/* ================= HERO ================= */}
       <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-black/30 z-10" />
+        <div className="absolute inset-0 bg-green-900/60 z-10" />
         <img 
-          src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461" 
-          className="absolute inset-0 w-full h-full object-cover"
-          alt="Azure Crown Dubai Exterior"
+          src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb" 
+          className="absolute inset-0 w-full h-full object-cover animate-cinematic-zoom"
+          alt="Yafour Resort Exterior"
         />
-        <div className="relative z-20 text-center text-white px-6">
+        <div className="relative z-20 text-center text-white px-6 mt-16 text-shadow-lg">
           <Reveal>
-            <h1 className="text-6xl md:text-[7vw] font-serif italic mb-8 leading-none">
+            <h1 className="text-6xl md:text-8xl font-heading font-bold mb-6 text-gold-400">
               {t.heroTitle}
             </h1>
-            <div className="w-16 h-[1px] bg-[#C5A358] mx-auto mb-8" />
-            <p className="text-lg font-light tracking-widest max-w-2xl mx-auto opacity-90 uppercase">
+            <div className="w-16 h-1 bg-gold-500 mx-auto mb-8 rounded-full shadow-lg" />
+            <p className="text-xl md:text-2xl font-bold max-w-3xl mx-auto drop-shadow-md">
               {t.heroSubtitle}
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* ================= STORY SECTION (The Split) ================= */}
-      <section className="py-40 px-6 md:px-16">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-24 items-center">
+      {/* ================= STORY SECTION ================= */}
+      <section className="py-32 px-6 md:px-16 bg-white">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
           <Reveal>
-            <span className="text-[#C5A358] text-[10px] uppercase tracking-[0.5em] font-bold mb-6 block">Est. 2018</span>
-            <h2 className="text-5xl font-serif italic mb-10 leading-tight">
+            <span className="text-gold-600 font-bold text-sm uppercase tracking-widest block mb-4 border-b border-gold-500/20 inline-block pb-2">
+              {isArabic ? "تأسس عام ٢٠١٠" : "Established 2010"}
+            </span>
+            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-8 text-charcoal-900 leading-snug">
               {t.storyTitle}
             </h2>
-            <div className="space-y-8 text-gray-500 text-lg font-light leading-relaxed">
+            <div className="space-y-6 text-charcoal-800/80 text-lg leading-relaxed">
               <p>
                 {isArabic
-                  ? "منذ تأسيسه، يمثل أزور كراون رؤية جديدة للضيافة الراقية، حيث يجتمع التصميم العصري مع الخدمة الشخصية."
-                  : "Azure Crown was born from a singular ambition: to create a residence that feels less like a hotel and more like a private collector’s estate."}
+                  ? "منذ افتتاحه، شكل منتجع يعفور علامة فارقة في عالم السياحة والضيافة في سوريا. بني الفندق على مساحة خضراء شاسعة ليكون الملاذ الأول للباحثين عن الهدوء والاستجمام بعيداً عن صخب المدينة."
+                  : "Since its opening, Yafour Resort has been a landmark in the world of tourism and hospitality in Syria. Built over vast greenery, it serves as the premier sanctuary for those seeking tranquility away from the city's hustle."}
               </p>
               <p>
                 {isArabic
-                  ? "تم تصميم كل مساحة بعناية لتوفر تجربة إقامة تتجاوز التوقعات، حيث يلتقي التراث مع الحداثة."
-                  : "Every corridor, every scent, and every interaction is curated to evoke a sense of timelessness. We don't just host guests; we safeguard their peace."}
+                  ? "نجمع في يعفور بين روح الضيافة الدمشقية الأصيلة وأحدث معايير الفخامة العالمية لنقدم لضيوفنا تجربة لا تُنسى."
+                  : "We combine the spirit of authentic Damascene hospitality with the latest standards of global luxury to offer our guests an unforgettable experience."}
               </p>
             </div>
           </Reveal>
 
           <div className="relative">
             <Reveal delay={0.2}>
-              <div className="aspect-[4/5] overflow-hidden rounded-t-full shadow-2xl">
+              <div className="aspect-[4/5] overflow-hidden rounded-3xl shadow-xl border border-ivory-400">
                 <img
-                  src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb"
-                  className="w-full h-full object-cover"
+                  src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461"
+                  className="w-full h-full object-cover hover:scale-105 transition duration-700"
                   alt="Hotel Interior"
                 />
               </div>
-              {/* Floating Quote */}
-              <div className={`absolute bottom-10 ${isArabic ? '-left-10' : '-right-10'} bg-[#1a1a1a] text-white p-8 max-w-[280px] hidden lg:block shadow-2xl`}>
-                <p className="font-serif italic text-lg mb-4">
-                  "Luxury is not a price, it is a feeling of being understood."
+              <div className={`absolute -bottom-8 ${isArabic ? '-right-8' : '-left-8'} bg-green-800 text-white p-8 max-w-[300px] hidden lg:block shadow-2xl rounded-2xl`}>
+                <p className="font-heading text-xl mb-4 font-bold">
+                  {isArabic ? "الرفاهية الحقيقية تكمن في متعة الانسجام مع الطبيعة." : "True luxury is found in the joy of harmonizing with nature."}
                 </p>
-                <span className="text-[#C5A358] text-[10px] uppercase tracking-widest">— Managing Director</span>
+                <div className="w-8 h-1 bg-gold-400 rounded-full" />
               </div>
             </Reveal>
           </div>
         </div>
       </section>
 
-      {/* ================= STATS SECTION (Dark Elegant) ================= */}
-      <section className="py-32 bg-[#121212] text-white">
-        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+      {/* ================= STATS ================= */}
+      <section className="py-24 bg-green-900 text-white relative">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb')] bg-cover mix-blend-overlay opacity-10"></div>
+        <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-12 text-center relative z-10">
           {[
-            { label: isArabic ? "أجنحة خاصة" : "Private Suites", val: "142" },
-            { label: isArabic ? "جوائز عالمية" : "Global Awards", val: "12" },
-            { label: isArabic ? "طاقم عمل" : "Dedicated Staff", val: "300+" },
-            { label: isArabic ? "سنة الخبرة" : "Years of Legacy", val: "25" },
+            { label: isArabic ? "غرفة وجناح" : "Rooms & Suites", val: "220" },
+            { label: isArabic ? "مطاعم وكافيهات" : "Restaurants & Cafes", val: "5" },
+            { label: isArabic ? "قاعات أفراح ومؤتمرات" : "Halls & Conferences", val: "4" },
+            { label: isArabic ? "موظف في خدمتكم" : "Dedicated Staff", val: "400+" },
           ].map((stat, i) => (
             <Reveal key={i} delay={i * 0.1}>
-              <h3 className="text-[#C5A358] text-4xl font-serif italic mb-2">{stat.val}</h3>
-              <p className="text-gray-500 text-[10px] uppercase tracking-[0.3em]">{stat.label}</p>
+              <h3 className="text-gold-400 text-5xl font-heading font-bold mb-3 drop-shadow-md">{stat.val}</h3>
+              <p className="text-white/80 text-sm font-bold tracking-wider uppercase">{stat.label}</p>
             </Reveal>
           ))}
         </div>
       </section>
 
-      {/* ================= DESIGN SECTION (Asymmetric) ================= */}
-      <section className="py-40 px-6 md:px-16 bg-white">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-24 items-center">
-          <div className="order-2 md:order-1 relative">
+      {/* ================= DESIGN & ARCHITECTURE ================= */}
+      <section className="py-32 px-6 md:px-16 bg-ivory-200">
+        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+          <div className="order-2 md:order-1">
             <Reveal>
-              <div className="aspect-video overflow-hidden shadow-2xl mb-8">
-                <img
-                  src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6"
-                  className="w-full h-full object-cover"
-                  alt="Architectural Detail"
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-8">
-                <div className="aspect-square overflow-hidden shadow-lg">
-                  <img src="https://images.unsplash.com/photo-1497366216548-37526070297c" className="w-full h-full object-cover" />
-                </div>
-                <div className="pt-8">
-                  <p className="text-sm text-gray-400 font-light italic leading-relaxed">
-                    {isArabic 
-                      ? "نستخدم المواد الطبيعية مثل الرخام الإيطالي وخشب الجوز لخلق بيئة دافئة."
-                      : "We employ raw Italian marble and hand-rubbed walnut to create an environment that breathes with the guest."}
-                  </p>
-                </div>
+              <div className="grid grid-cols-2 gap-6 relative">
+                <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6" className="w-full aspect-[3/4] object-cover rounded-2xl shadow-lg mt-12" alt="Nature Details" />
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c" className="w-full aspect-[3/4] object-cover rounded-2xl shadow-lg relative -top-12 border-4 border-white" alt="Lobby Details" />
               </div>
             </Reveal>
           </div>
 
           <div className="order-1 md:order-2">
             <Reveal>
-              <h2 className="text-5xl font-serif italic mb-8">{t.designTitle}</h2>
-              <p className="text-gray-500 text-lg font-light leading-relaxed mb-10">
+              <h2 className="text-4xl font-heading font-bold mb-8 text-charcoal-900 leading-snug">{t.designTitle}</h2>
+              <p className="text-charcoal-800/80 text-lg leading-relaxed mb-8">
                 {isArabic
-                  ? "الهندسة المعمارية للفندق مستوحاة من البساطة المعاصرة مع لمسات فنية تعكس هوية دبي الحديثة. كل زاوية هي لوحة فنية مرسومة بالضوء والظل."
-                  : "Inspired by the movement of the tides and the geometry of the desert, our architecture is a masterclass in 'Quiet Luxury'. It is a sanctuary designed to filter out the noise of the city, replacing it with the soft interplay of light and shadow."}
+                  ? "يعتمد تصميم منتجع يعفور على دمج العناصر الطبيعية كالمقاطع المائية والمساحات الخضراء الواسعة مع الحجر الأبيض ليخلق بيئة بصرية تريح النفس. الواجهات الزجاجية تمنحك إطلالات كاملة على الحدائق والمسبح الأولمبي."
+                  : "The design of Yafour Resort is based on integrating natural elements such as water features and vast green spaces with white stone to create a visually soothing environment. Glass facades provide full views of the gardens and the Olympic pool."}
               </p>
-              <button className="border-b border-[#C5A358] pb-2 text-[10px] uppercase tracking-[0.4em] text-[#C5A358]">
-                {isArabic ? "شاهد المعرض المعماري" : "Explore Architecture"}
-              </button>
+              <div className="w-16 h-1 bg-green-600 rounded-full mb-8" />
             </Reveal>
           </div>
         </div>
       </section>
 
-      {/* ================= PILLARS / VALUES ================= */}
-      <section className="py-40 bg-[#fcfaf7] border-t border-gray-100">
-        <div className="max-w-5xl mx-auto px-6 text-center">
+      {/* ================= VALUES ================= */}
+      <section className="py-32 px-6 bg-white border-t border-gold-500/10">
+        <div className="max-w-5xl mx-auto text-center">
           <Reveal>
-            <h2 className="text-4xl md:text-6xl font-serif italic mb-20">{t.valuesTitle}</h2>
+            <h2 className="text-4xl md:text-5xl font-heading font-bold text-charcoal-900 mb-20">{t.valuesTitle}</h2>
           </Reveal>
           
-          <div className="grid md:grid-cols-3 gap-20">
+          <div className="grid md:grid-cols-3 gap-12">
             {[
               { id: "01", 
-                title: isArabic ? "الخصوصية المطلقة" : "Sacred Privacy", 
-                desc: isArabic ? "خدمة تتوقع احتياجاتك قبل طلبها." : "Service that anticipates, but never intrudes." 
+                title: isArabic ? "كرم الضيافة" : "Generous Hospitality", 
+                desc: isArabic ? "نعتني أدق التفاصيل لنجعلك تشعر بأنك في منزلك." : "We care for the smallest details to make you feel at home." 
               },
               { id: "02", 
-                title: isArabic ? "الفن المنسق" : "Curated Artistry", 
-                desc: isArabic ? "كل تفصيل هو اختيار مقصود للجمال." : "Every texture and tone is a deliberate choice." 
+                title: isArabic ? "الجودة المتميزة" : "Premium Quality", 
+                desc: isArabic ? "لا نساوم على الجودة في مأكولاتنا، مرافقنا، وخدماتنا." : "We do not compromise on quality in our food, facilities, and services." 
               },
               { id: "03", 
-                title: isArabic ? "الاستدامة الراقية" : "Refined Future", 
-                desc: isArabic ? "نلتزم بالرفاهية التي تحترم الأرض." : "Luxury that honors the earth and its resources." 
+                title: isArabic ? "التطور المستمر" : "Continuous Innovation", 
+                desc: isArabic ? "نعمل دائماً على تجديد مرافقنا لمواكبة أحدث الصيحات." : "We always work on renewing our facilities to keep up with the latest trends." 
               },
             ].map((item, i) => (
               <Reveal key={i} delay={i * 0.1}>
-                <span className="text-[#C5A358] font-serif text-3xl italic block mb-6">{item.id}</span>
-                <h4 className="text-xl font-serif italic mb-4">{item.title}</h4>
-                <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+                <div className="bg-ivory-400 p-10 rounded-3xl h-full shadow-sm hover:shadow-luxury transition border border-transparent hover:border-gold-500/20 group">
+                  <span className="w-16 h-16 rounded-full bg-green-50 text-green-600 font-heading text-2xl font-bold flex items-center justify-center mx-auto mb-6 group-hover:bg-green-600 group-hover:text-white transition duration-300">{item.id}</span>
+                  <h4 className="text-xl font-bold font-heading mb-4 text-charcoal-900">{item.title}</h4>
+                  <p className="text-charcoal-800/70 text-sm leading-relaxed">{item.desc}</p>
+                </div>
               </Reveal>
             ))}
           </div>

@@ -1,13 +1,13 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { Icon } from "@iconify/react";
 
-// Animation Helper
 const Reveal = ({ children, delay = 0 }) => (
   <motion.div
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true }}
-    transition={{ duration: 1, delay, ease: [0.22, 1, 0.36, 1] }}
+    transition={{ duration: 0.8, delay }}
   >
     {children}
   </motion.div>
@@ -17,176 +17,143 @@ export default function Dining({ lang }) {
   const isArabic = lang === "ar";
 
   const t = {
-    heroTitle: isArabic ? "المطاعم والتجارب" : "Gastronomy",
+    heroTitle: isArabic ? "المطاعم والمقاهي" : "Dining & Cafes",
     heroSubtitle: isArabic
-      ? "رحلة طهوية استثنائية تجمع بين النكهات العالمية واللمسات المعاصرة."
-      : "A curated journey through global flavors, where architectural design meets culinary mastery.",
-    signature: isArabic ? "مطعم أزور" : "Azure Signature",
-    privateDining: isArabic ? "الطعام الخاص" : "The Private Atelier",
-    philosophy: isArabic ? "فلسفة الطهي" : "The Philosophy",
-    reserve: isArabic ? "احجز طاولة" : "Secure a Table",
-    exploreMenu: isArabic ? "اكتشف القائمة" : "View the Menu",
-    cellarTitle: isArabic ? "قبو الخبير" : "The Sommelier's Vault",
-    cellarDesc: isArabic 
-      ? "مجموعة مختارة من أعرق الكروم العالمية، منسقة بعناية لتكمل وجبتكم." 
-      : "A subterranean sanctuary housing over 3,000 labels of rare vintages and artisan spirits."
+      ? "رحلة تذوق استثنائية ترضي جميع حواسك بأشهى الأطباق المحلية والعالمية."
+      : "An exceptional culinary journey satisfying all your senses with local and global dishes.",
+    restaurantsTitle: isArabic ? "وجهات تناول الطعام" : "Dining Destinations",
+    restaurantsSubtitle: isArabic ? "تشكيلة من أفضل المطابخ العالمية" : "A selection of the best global cuisines",
+    reserveBtn: isArabic ? "احجز طاولتك" : "Reserve Table",
+    viewMenu: isArabic ? "عرض القائمة" : "View Menu",
   };
 
-  return (
-    <div className={`bg-[#fcfaf7] text-[#1a1a1a] ${isArabic ? "font-serif-ar" : ""}`} dir={isArabic ? "rtl" : "ltr"}>
+  const restaurants = [
+    {
+      name: isArabic ? "مطعم السرايا" : "Al Saraya Restaurant",
+      type: isArabic ? "مأكولات شرقية وغربية" : "Oriental & Western Cuisine",
+      desc: isArabic
+        ? "المطعم الرئيسي في الفندق يقدم بوفيهاً مفتوحاً للإفطار والغداء والعشاء مع تنوع غني يرضي كل الأذواق وسط إطلالة خلابة."
+        : "The main hotel restaurant offers an open buffet for breakfast, lunch, and dinner with a rich variety satisfying all tastes with stunning views.",
+      time: isArabic ? "٦:٣٠ ص - ١١:٣٠ م" : "6:30 AM - 11:30 PM",
+      img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1",
+    },
+    {
+      name: isArabic ? "أنيس كافيه" : "Anis Cafe",
+      type: isArabic ? "مقهى ومخبوزات" : "Cafe & Bakery",
+      desc: isArabic
+        ? "وجهة مثالية للاجتماعات السريعة أو الاسترخاء بعد الظهر مع تشكيلة من القهوة الممتازة والحلويات الفرنسية والشامية."
+        : "A perfect destination for quick meetings or afternoon relaxation with a selection of premium coffee and French-Levantine pastries.",
+      time: isArabic ? "٨:٠٠ ص - ١٢:٠٠ ص" : "8:00 AM - 12:00 AM",
+      img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24",
+    },
+    {
+      name: isArabic ? "تراس المسبح" : "Poolside Terrace",
+      type: isArabic ? "وجبات خفيفة وعصائر" : "Snacks & Juices",
+      desc: isArabic
+        ? "استمتع بأشعة الشمس والمناظر المنعشة مع قائمة من العصائر الطازجة والوجبات الخفيفة والبيتزا المحضرة على الحطب."
+        : "Enjoy the sunshine and refreshing views with a menu of fresh juices, snacks, and wood-fired pizza.",
+      time: isArabic ? "١٠:٠٠ ص - غروب الشمس" : "10:00 AM - Sunset",
+      img: "https://images.unsplash.com/photo-1537047902294-62a40c20a6ae",
+    },
+  ];
 
-      {/* ================= HERO SECTION (Full Height) ================= */}
-      <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-black/30 z-10" />
+  return (
+    <div className={`bg-ivory-200 text-charcoal-800 antialiased min-h-screen ${isArabic ? "font-serif-ar" : "font-sans"}`} dir={isArabic ? "rtl" : "ltr"}>
+
+      {/* ================= HERO ================= */}
+      <section className="relative h-[70vh] flex items-center justify-center overflow-hidden bg-charcoal-900">
+        <div className="absolute inset-0 bg-black/40 z-10" />
         <img 
-          src="https://images.unsplash.com/photo-1550966842-286e58249217" 
-          className="absolute inset-0 w-full h-full object-cover scale-105"
-          alt="Fine Dining Ambiance"
+          src="https://images.unsplash.com/photo-1414235077428-338988a2e8c0" 
+          className="absolute inset-0 w-full h-full object-cover animate-cinematic-zoom"
+          alt="Luxury Dining"
         />
-        <div className="relative z-20 text-center text-white px-6">
+        <div className="relative z-20 text-center text-white px-6 mt-16 text-shadow-lg">
           <Reveal>
-            <span className="block text-[10px] uppercase tracking-[0.5em] mb-6 opacity-80">
-                {isArabic ? "تجربة تذوق عالمية" : "World-Class Palate"}
+            <span className="block text-gold-400 font-bold uppercase tracking-widest mb-6 border-b border-gold-400/30 inline-block pb-2">
+                Yafour Resort
             </span>
-            <h1 className="text-6xl md:text-[8vw] font-serif italic mb-8 leading-none tracking-tighter">
-              {t.heroTitle}
-            </h1>
-            <p className="text-lg font-light tracking-wide max-w-2xl mx-auto opacity-90 italic">
+            <h1 className="text-6xl md:text-8xl font-heading font-bold mb-6 text-white drop-shadow-md">{t.heroTitle}</h1>
+            <p className="text-xl md:text-2xl font-bold max-w-2xl mx-auto drop-shadow-lg text-white/90">
               {t.heroSubtitle}
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* ================= SIGNATURE RESTAURANT (Split Layout) ================= */}
-      <section className="py-40 px-6 md:px-16 overflow-hidden">
+      {/* ================= RESTAURANTS ================= */}
+      <section className="py-32 px-6 md:px-16 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-12 gap-16 items-center">
-            <div className="md:col-span-5 order-2 md:order-1">
-              <Reveal>
-                <div className="flex items-center gap-3 mb-6">
-                    <span className="w-8 h-[1px] bg-[#C5A358]" />
-                    <span className="text-[#C5A358] text-[10px] uppercase tracking-[0.3em] font-bold">Michelin Guide 2026</span>
-                </div>
-                <h2 className="text-5xl md:text-7xl font-serif italic mb-8 leading-[1.1]">
-                  {t.signature}
-                </h2>
-                <p className="text-gray-500 text-lg leading-relaxed mb-12 font-light">
-                  {isArabic
-                    ? "يقدم مطعم أزور تجربة فريدة حيث تلتقي المكونات الموسمية بأعلى معايير الطهي العالمي. إطلالة بانورامية وأجواء أنيقة تضمن أمسية لا تُنسى."
-                    : "Azure transcends traditional dining. Our Executive Chef orchestrates a daily symphony of locally-sourced ingredients and molecular techniques, served against the backdrop of the Dubai skyline."}
-                </p>
-                <div className="flex flex-wrap gap-6">
-                    <button className="px-10 py-5 bg-[#1a1a1a] text-white text-[10px] uppercase tracking-[0.3em] hover:bg-[#C5A358] transition-all duration-500 rounded-full shadow-xl">
-                    {t.reserve}
-                    </button>
-                    <button className="px-10 py-5 border border-gray-200 text-[10px] uppercase tracking-[0.3em] hover:border-[#C5A358] transition-all duration-500 rounded-full">
-                    {t.exploreMenu}
-                    </button>
-                </div>
-              </Reveal>
-            </div>
-
-            <div className="md:col-span-7 order-1 md:order-2 relative">
-                <Reveal>
-                    <div className="aspect-[4/5] md:aspect-[1.2/1] overflow-hidden rounded-sm shadow-2xl">
-                        <motion.img 
-                            whileHover={{ scale: 1.05 }}
-                            transition={{ duration: 1.5 }}
-                            src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b" 
-                            className="w-full h-full object-cover"
-                        />
-                    </div>
-                    {/* Floating Detail Image */}
-                    <div className="hidden md:block absolute -bottom-12 -left-12 w-64 h-80 border-[12px] border-[#fcfaf7] shadow-2xl overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de" className="w-full h-full object-cover" />
-                    </div>
-                </Reveal>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ================= THE CELLAR (Dark & Moody) ================= */}
-      <section className="py-32 bg-[#121212] text-white">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-24 items-center">
+          <div className="text-center mb-20">
             <Reveal>
-                <div className="aspect-square overflow-hidden rounded-full border border-white/10 p-4">
-                    <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3" className="w-full h-full object-cover rounded-full opacity-80" />
-                </div>
+              <span className="text-gold-600 uppercase tracking-widest text-sm font-bold mb-4 block">{t.restaurantsSubtitle}</span>
+              <h2 className="text-4xl md:text-5xl font-heading font-bold text-charcoal-900">{t.restaurantsTitle}</h2>
+              <div className="w-16 h-1 bg-green-600 rounded-full mx-auto mt-6" />
             </Reveal>
-            <div>
-                <Reveal delay={0.2}>
-                    <h2 className="text-5xl font-serif italic mb-8 text-[#C5A358]">{t.cellarTitle}</h2>
-                    <p className="text-gray-400 text-lg leading-relaxed mb-10 font-light">
-                        {t.cellarDesc}
+          </div>
+
+          <div className="space-y-32">
+            {restaurants.map((venue, idx) => (
+              <div key={idx} className={`flex flex-col ${idx % 2 !== 0 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 lg:gap-20 items-center`}>
+                <div className="w-full md:w-3/5 overflow-hidden rounded-3xl shadow-xl aspect-[16/10]">
+                  <motion.img 
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 1 }}
+                    src={venue.img} 
+                    className="w-full h-full object-cover cursor-pointer"
+                  />
+                </div>
+                <div className="w-full md:w-2/5">
+                  <Reveal>
+                    <div className="flex items-center gap-2 mb-4 text-gold-600">
+                        <Icon icon="mdi:silverware-fork-knife" className="text-xl" />
+                        <span className="font-bold uppercase tracking-wider text-sm">{venue.type}</span>
+                    </div>
+                    <h3 className="text-4xl font-heading font-bold mb-6 text-charcoal-900">{venue.name}</h3>
+                    <p className="text-charcoal-800/70 text-lg leading-relaxed mb-8">
+                      {venue.desc}
                     </p>
-                    <div className="grid grid-cols-2 gap-8 border-t border-white/10 pt-10">
-                        <div>
-                            <span className="text-[#C5A358] text-2xl font-serif">3000+</span>
-                            <p className="text-[10px] text-gray-500 uppercase tracking-widest mt-2">{isArabic ? "زجاجة نادرة" : "Rare Vintages"}</p>
-                        </div>
-                        <div>
-                            <span className="text-[#C5A358] text-2xl font-serif">{isArabic ? "خبير" : "Expert"}</span>
-                            <p className="text-[10px] text-gray-500 uppercase tracking-widest mt-2">{isArabic ? "تنسيق خاص" : "Sommelier Service"}</p>
-                        </div>
+                    <div className="flex items-center gap-3 mb-10 bg-ivory-400 p-4 rounded-xl w-fit">
+                        <Icon icon="mdi:clock-outline" className="text-green-600 text-xl" />
+                        <span className="text-charcoal-800 font-bold">{venue.time}</span>
                     </div>
-                </Reveal>
-            </div>
-        </div>
-      </section>
-
-      {/* ================= PRIVATE ATELIER (Private Dining) ================= */}
-      <section className="py-40 bg-white px-6 md:px-16">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
-          <div>
-            <Reveal>
-                <span className="text-[#C5A358] text-[10px] uppercase tracking-[0.4em] font-bold mb-4 block">{isArabic ? "حصري" : "Exclusive"}</span>
-                <h2 className="text-5xl font-serif italic mb-8">
-                {t.privateDining}
-                </h2>
-                <p className="text-gray-500 text-lg leading-relaxed font-light mb-10">
-                {isArabic
-                    ? "للحظات الخاصة، نقدم قاعات طعام خاصة مصممة لتناسب الاحتفالات والاجتماعات الرفيعة، مع قوائم طعام مخصصة بإشراف الشيف التنفيذي."
-                    : "For those moments that require absolute discretion, our Private Atelier provides a secluded haven. From corporate banquets to intimate proposals, we tailor every detail—from the thread count of the linens to the tempo of the background music."}
-                </p>
-                <button className="border-b border-black pb-2 text-[10px] uppercase tracking-[0.4em] hover:text-[#C5A358] hover:border-[#C5A358] transition-all">
-                    {isArabic ? "استفسر الآن" : "Inquire for Events"}
-                </button>
-            </Reveal>
-          </div>
-
-          <div className="relative">
-             <Reveal>
-                <div className="aspect-[4/5] overflow-hidden shadow-2xl">
-                    <img
-                    src="https://images.unsplash.com/photo-1550966842-286e58249217"
-                    className="w-full h-full object-cover"
-                    />
+                    <div className="flex flex-col sm:flex-row gap-4">
+                        <Link to="/contact" className="inline-flex items-center justify-center px-8 py-3 bg-green-700 text-white font-bold uppercase tracking-wide hover:bg-green-800 transition-colors rounded-full shadow-md">
+                        {t.reserveBtn}
+                        </Link>
+                        <button className="inline-flex items-center justify-center px-8 py-3 bg-white border-2 border-gold-500 text-gold-600 font-bold uppercase tracking-wide hover:bg-gold-50 transition-colors rounded-full">
+                        {t.viewMenu}
+                        </button>
+                    </div>
+                  </Reveal>
                 </div>
-             </Reveal>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ================= PHILOSOPHY (Full Width Visual) ================= */}
-      <section className="py-40 bg-[#fcfaf7] relative overflow-hidden">
-        <div className="max-w-4xl mx-auto px-6 text-center relative z-10">
-          <Reveal>
-            <span className="text-6xl text-[#C5A358] font-serif mb-8 block">“</span>
-            <h2 className="text-4xl md:text-6xl font-serif italic mb-12 tracking-tight">
-              {t.philosophy}
-            </h2>
-            <p className="text-gray-500 text-xl leading-relaxed italic font-light">
-              {isArabic
-                ? "نؤمن بأن الطهي فن يتجاوز المذاق، إنه تجربة حسية متكاملة. كل طبق يعكس شغفنا بالجودة والابتكار والتفاصيل الدقيقة."
-                : "We believe cuisine is an ephemeral art form. It’s the meeting point of geography, history, and raw emotion—plated with precision and served with humility."}
-            </p>
-          </Reveal>
+      {/* ================= ROOM SERVICE BANNER ================= */}
+      <section className="py-24 bg-green-800 text-white relative flex items-center overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1571896349842-33c89424de2d')] bg-cover bg-center mix-blend-overlay opacity-30"></div>
+        <div className="max-w-7xl mx-auto px-6 w-full relative z-10 text-center">
+            <Reveal>
+                <Icon icon="mdi:room-service-outline" className="text-6xl text-gold-400 mx-auto mb-6" />
+                <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6">
+                    {isArabic ? "خدمة الغرف" : "Room Service"}
+                </h2>
+                <p className="text-lg text-white/80 max-w-2xl mx-auto mb-10">
+                    {isArabic 
+                        ? "استمتع بقائمة طعام متنوعة ومحضرة بكل حرفية لتصل إلى غرفتك في أي وقت، لتكتمل تجربة راحتك واستجمامك."
+                        : "Enjoy a diverse, expertly prepared menu delivered to your room anytime, perfectly completing your wellness experience."
+                    }
+                </p>
+                <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-6 py-3 rounded-full text-white font-bold uppercase tracking-wider border border-white/30">
+                    <Icon icon="mdi:phone-in-talk" />
+                    <span>{isArabic ? "اطلب الرقم ٣ للخدمة المباشرة" : "Dial 3 for Direct Service"}</span>
+                </div>
+            </Reveal>
         </div>
-        {/* Decorative elements */}
-        <div className="absolute top-1/2 left-0 w-64 h-[1px] bg-[#C5A358]/20" />
-        <div className="absolute top-1/2 right-0 w-64 h-[1px] bg-[#C5A358]/20" />
       </section>
 
     </div>

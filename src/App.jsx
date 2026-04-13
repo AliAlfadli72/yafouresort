@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -12,10 +12,18 @@ import Offers from "./pages/Offers";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Book from "./pages/Book";
+import Services from "./pages/Services";
+import Blog from "./pages/Blog";
 
 function App() {
   // ✅ Default language Arabic
   const [lang, setLang] = useState("ar");
+  const { pathname } = useLocation();
+
+  // ✅ Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   // ✅ Load saved language from localStorage
   useEffect(() => {
@@ -39,7 +47,7 @@ function App() {
   }, [lang]);
 
   return (
-    <div className="font-body bg-navy min-h-screen text-white">
+    <div className="font-body min-h-screen flex flex-col text-charcoal-800">
       
       {/* ✅ Navbar with language control */}
       <Navbar lang={lang} setLang={setLang} />
@@ -50,6 +58,8 @@ function App() {
         <Route path="/dining" element={<Dining lang={lang} />} />
         <Route path="/offers" element={<Offers lang={lang} />} />
         <Route path="/about" element={<About lang={lang} />} />
+        <Route path="/services" element={<Services lang={lang} />} />
+        <Route path="/blog" element={<Blog lang={lang} />} />
         <Route path="/contact" element={<Contact lang={lang} />} />
         <Route path="/book" element={<Book lang={lang} />} />
       </Routes>
