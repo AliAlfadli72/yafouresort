@@ -36,7 +36,7 @@ export default function Offers({ lang }) {
         ? "استمتع بإجازة قصيرة مع العائلة تتضمن وجبة إفطار مجانية وعشاء مشاوي فاخر."
         : "Enjoy a short getaway with your family including free breakfast and a deluxe BBQ dinner.",
       price: "$ 450",
-      img: "https://images.unsplash.com/photo-1544161515-4ad6ce67e340",
+      img: "https://images.unsplash.com/photo-1544161515-4ad6ce67e340?w=700&q=78&fm=webp&auto=format",
       benefits: isArabic ? ["إفطار بوفيه مفتوح", "عشاء مشاوي", "دخول المسبح"] : ["Open Buffet Breakfast", "BBQ Dinner", "Pool Access"]
     },
     {
@@ -45,7 +45,7 @@ export default function Offers({ lang }) {
         ? "أجواء رومانسية لا تُنسى تتضمن جناحاً مزيناً بالورود وجلسة مساج استرخائية للزوجين."
         : "An unforgettable romantic atmosphere including a flower-decorated suite and a relaxing couples massage.",
       price: "$ 850",
-      img: "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+      img: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=700&q=78&fm=webp&auto=format",
       benefits: isArabic ? ["تزيين الجناح", "مساج استرخائي", "عشاء خاص"] : ["Suite Decoration", "Relaxing Massage", "Private Dinner"]
     },
     {
@@ -54,7 +54,7 @@ export default function Offers({ lang }) {
         ? "استعد نشاطك مع إقامة تتضمن باقة علاجية في السبا ودخولاً غير محدود للنادي الصحي."
         : "Recharge your energy with a stay that includes a spa treatment package and unlimited health club access.",
       price: "$ 600",
-      img: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa",
+      img: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=700&q=78&fm=webp&auto=format",
       benefits: isArabic ? ["علاج سبا كامل", "وجبات صحية", "نادي صحي"] : ["Full Spa Treatment", "Healthy Meals", "Health Club"]
     },
   ];
@@ -66,7 +66,7 @@ export default function Offers({ lang }) {
       <section className="relative h-[70vh] flex items-center justify-center overflow-hidden bg-charcoal-900">
         <div className="absolute inset-0 bg-green-900/50 z-10" />
         <img 
-          src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4" 
+          src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=900&q=78&fm=webp&auto=format" 
           className="absolute inset-0 w-full h-full object-cover animate-cinematic-zoom"
           alt="Luxury Resort Offers"
         />
@@ -91,7 +91,7 @@ export default function Offers({ lang }) {
                <motion.img 
                 whileHover={{ scale: 1.05 }}
                 transition={{ duration: 1 }}
-                src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb" 
+                src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&q=78&fm=webp&auto=format" 
                 className="w-full h-full object-cover cursor-pointer"
                />
                <div className="absolute top-8 left-8 bg-gold-500 text-white font-bold px-6 py-2 rounded-full shadow-md z-10 flex items-center gap-2">
@@ -177,7 +177,7 @@ export default function Offers({ lang }) {
 
       {/* ================= NEWSLETTER ================= */}
       <section className="py-40 bg-green-900 text-white text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb')] bg-cover mix-blend-overlay opacity-10 blur-sm"></div>
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200&q=60&fm=webp&auto=format')] bg-cover mix-blend-overlay opacity-10 blur-sm"></div>
         <div className="max-w-3xl mx-auto px-6 relative z-10">
           <Reveal>
             <Icon icon="mdi:email-newsletter" className="text-6xl text-gold-400 mx-auto mb-6" />

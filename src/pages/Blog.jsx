@@ -18,7 +18,7 @@ export default function Blog({ lang }) {
         excerpt: isArabic 
           ? "احتفلنا أمس بافتتاح الصالة الماسية الجديدة والمجهزة بأفضل تقنيات الإضاءة والصوت لتكون المكان الأمثل لأفراحكم."
           : "Yesterday we celebrated the opening of our new Diamond Hall, equipped with the best lighting and sound technology for your weddings.",
-        image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed",
+        image: "https://images.unsplash.com/photo-1519225421980-715cb0215aed?w=700&q=78&fm=webp&auto=format",
       },
       {
         id: 2,
@@ -27,7 +27,7 @@ export default function Blog({ lang }) {
         excerpt: isArabic
           ? "ندعوكم لتذوق أشهى الأطباق الشامية في مهرجاننا السنوي الذي يقام في مطعم السرايا بإشراف أمهر الطهاة."
           : "We invite you to taste the most delicious Levantine dishes at our annual festival at Al Saraya Restaurant.",
-        image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1",
+        image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=700&q=78&fm=webp&auto=format",
       },
       {
         id: 3,
@@ -36,7 +36,7 @@ export default function Blog({ lang }) {
         excerpt: isArabic
           ? "نقدم لك نصائح ذهبية لتحقيق أقصى استفادة من جلسات المساج والعناية بالبشرة في نادي ومسبح يعفور الصحي."
           : "We offer golden tips to get the most out of your massage and skincare sessions at the Yafour Health Club.",
-        image: "https://images.unsplash.com/photo-1544161515-4ad6ce67e340",
+        image: "https://images.unsplash.com/photo-1544161515-4ad6ce67e340?w=700&q=78&fm=webp&auto=format",
       }
     ]
   };

@@ -1,124 +1,253 @@
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 
+// ─── Guaranteed dark green color (bypasses any Tailwind resolution issues) ───
+const BG_DARK  = "#1B3022";  // Forest Green — main
+const BG_DEEPER = "#142018"; // Deeper footer shade
+
 export default function Footer({ lang }) {
   const isArabic = lang === "ar";
 
   const t = {
-    address: isArabic
-      ? "منتجع وفندق يعفور\nطريق بيروت دمشق الدولي، يعفور\nدمشق، ريف دمشق، سوريا\n+963 11 000 0000"
-      : "Yafour Hotel & Resort\nBeirut-Damascus Highway, Yafour\nDamascus, Syria\n+963 11 000 0000",
-    navigate: isArabic ? "تصفح الموقع" : "Navigate",
-    menu: [
-      { nameAr: "من نحن", nameEn: "About Us", path: "/about" },
-      { nameAr: "الخدمات", nameEn: "Services", path: "/services" },
-      { nameAr: "الغرف", nameEn: "Rooms", path: "/rooms" },
-      { nameAr: "اتصل بنا", nameEn: "Contact", path: "/contact" }
-    ],
-    connect: isArabic ? "تواصل معنا" : "Connect",
-    newsletter: isArabic ? "النشرة البريدية" : "Newsletter",
-    newsletterDesc: isArabic ? "اشترك لتصلك أحدث عروض الفخامة في يعفور." : "Subscribe to receive the latest luxury offers.",
-    email: isArabic ? "البريد الإلكتروني" : "Email Address",
-    join: isArabic ? "اشتراك" : "Subscribe",
-    rights: isArabic
-      ? "© 2026 فندق ومنتجع يعفور. جميع الحقوق محفوظة."
-      : "© 2026 Yafour Hotel & Resort. All Rights Reserved.",
-    privacy: isArabic ? "سياسة الخصوصية" : "Privacy Policy",
-    terms: isArabic ? "الشروط والأحكام" : "Terms",
+    brand: {
+      tagline: isArabic ? "فخامة الطبيعة.. دمشقية الروح" : "Nature's Luxury, Damascus's Soul",
+      desc: isArabic
+        ? "في قلب طبيعة يعفور الساحرة، حيث يلتقي نقاء الهواء بهدوء الريف."
+        : "In the heart of enchanting Yafour, where pure air meets serene countryside.",
+    },
+    explore: {
+      title: isArabic ? "استكشف" : "Explore",
+      links: [
+        { label: isArabic ? "من نحن" : "About Us", path: "/about" },
+        { label: isArabic ? "الغرف والأجنحة" : "Rooms & Suites", path: "/rooms" },
+        { label: isArabic ? "المطاعم" : "Dining", path: "/dining" },
+        { label: isArabic ? "الخدمات" : "Services", path: "/services" },
+        { label: isArabic ? "العروض" : "Special Offers", path: "/offers" },
+        { label: isArabic ? "المدونة" : "Journal", path: "/blog" },
+      ],
+    },
+    services: {
+      title: isArabic ? "خدماتنا" : "Our Services",
+      items: [
+        { icon: "mdi:pool",                  label: isArabic ? "مجمع المسابح"    : "Swimming Pools" },
+        { icon: "mdi:spa",                   label: isArabic ? "منتجع صحي / سبا" : "Spa & Wellness" },
+        { icon: "mdi:silverware-fork-knife", label: isArabic ? "مطاعم فاخرة"     : "Fine Dining" },
+        { icon: "mdi:horse-variant",         label: isArabic ? "نادي الفروسية"   : "Equestrian Club" },
+        { icon: "mdi:human-capacity-increase",label: isArabic ? "قاعات مؤتمرات"  : "Conference Halls" },
+        { icon: "mdi:party-popper",          label: isArabic ? "قاعات أعراس"     : "Wedding Halls" },
+      ],
+    },
+    contact: {
+      title:    isArabic ? "تواصل معنا" : "Contact Us",
+      address:  isArabic ? "يعفور، ريف دمشق، سوريا" : "Yafour, Rural Damascus, Syria",
+      phone:    "+963 11 123 4567",
+      whatsapp: "+963 933 123 456",
+      email:    "info@yafouresort.com",
+    },
+    newsletter: {
+      title:       isArabic ? "اشترك في نشرتنا" : "Newsletter",
+      placeholder: isArabic ? "بريدك الإلكتروني" : "Your email address",
+      btn:         isArabic ? "اشترك" : "Subscribe",
+    },
+    legal: {
+      rights: isArabic
+        ? "© 2026 فندق ومنتجع يعفور. جميع الحقوق محفوظة."
+        : "© 2026 Yafour Hotel & Resort. All rights reserved.",
+    },
   };
 
+  const socials = [
+    { icon: "mdi:facebook",  href: "#",                         label: "Facebook" },
+    { icon: "mdi:instagram", href: "#",                         label: "Instagram" },
+    { icon: "mdi:twitter",   href: "#",                         label: "Twitter" },
+    { icon: "mdi:whatsapp",  href: "https://wa.me/963933123456", label: "WhatsApp" },
+  ];
+
   return (
-    <footer className="bg-ivory-200 text-charcoal-800 pt-32 pb-16 px-6 md:px-12 border-t border-gold-500/10">
-      <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-16 mb-24">
+    <footer style={{ background: BG_DARK, color: "#fff" }}>
 
-        {/* Logo & Address */}
-        <div className="md:col-span-1">
-          <h3 className="text-3xl font-heading font-bold flex items-center gap-2 mb-8 text-green-700">
-            <Icon icon="mdi:leaf" className="text-gold-500" />
-            YAFOUR
-          </h3>
-          <p className="text-charcoal-800/70 text-sm leading-relaxed font-body whitespace-pre-line">
-            {t.address}
-          </p>
-        </div>
-
-        {/* Navigate */}
-        <div>
-          <h4 className="text-sm uppercase tracking-widest text-gold-600 mb-8 font-bold border-b border-gold-500/20 pb-4 inline-block">
-            {t.navigate}
-          </h4>
-          <ul className="space-y-4 text-sm font-semibold text-charcoal-800/80">
-            {t.menu.map((item, idx) => (
-              <li key={idx}>
-                <Link to={item.path} className="hover:text-green-600 flex items-center gap-2 transition">
-                  <Icon icon={isArabic ? "mdi:chevron-left" : "mdi:chevron-right"} className="text-gold-500" />
-                  {isArabic ? item.nameAr : item.nameEn}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Connect */}
-        <div>
-          <h4 className="text-sm uppercase tracking-widest text-gold-600 mb-8 font-bold border-b border-gold-500/20 pb-4 inline-block">
-            {t.connect}
-          </h4>
-          <ul className="space-y-4 text-sm font-semibold text-charcoal-800/80">
-            <li>
-              <a href="#" className="hover:text-green-600 flex items-center gap-2 transition">
-                <Icon icon="mdi:instagram" className="text-xl text-gold-500" />
-                Instagram
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-green-600 flex items-center gap-2 transition">
-                <Icon icon="mdi:facebook" className="text-xl text-gold-500" />
-                Facebook
-              </a>
-            </li>
-            <li>
-              <a href="#" className="hover:text-green-600 flex items-center gap-2 transition">
-                <Icon icon="mdi:linkedin" className="text-xl text-gold-500" />
-                LinkedIn
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        {/* Newsletter */}
-        <div>
-          <h4 className="text-sm uppercase tracking-widest text-gold-600 mb-8 font-bold border-b border-gold-500/20 pb-4 inline-block">
-            {t.newsletter}
-          </h4>
-          <p className="text-sm text-charcoal-800/70 mb-6">
-            {t.newsletterDesc}
-          </p>
-          <div className="flex border border-gold-500/30 rounded-full overflow-hidden bg-white">
+      {/* ═══ PRE-FOOTER NEWSLETTER ═══ */}
+      <div style={{ borderBottom: "1px solid rgba(212,175,55,0.15)" }} className="py-12 px-6">
+        <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-6 justify-between">
+          <div>
+            <h3 className="font-heading font-bold text-2xl mb-1" style={{ color: "#fff" }}>
+              {t.newsletter.title}
+            </h3>
+            <p className="text-sm" style={{ color: "rgba(255,255,255,0.65)" }}>
+              {isArabic ? "احصل على أحدث عروضنا وأخبار المنتجع" : "Get our latest offers and resort news"}
+            </p>
+          </div>
+          <div className="flex gap-3 w-full md:w-auto">
             <input
               type="email"
-              placeholder={t.email}
-              className="bg-transparent text-sm w-full outline-none px-4 py-3 placeholder:text-gray-400"
+              id="newsletter-email"
+              placeholder={t.newsletter.placeholder}
+              style={{
+                background: "rgba(255,255,255,0.1)",
+                border: "1px solid rgba(255,255,255,0.2)",
+                color: "#fff",
+              }}
+              className="flex-1 md:w-72 rounded-full px-5 py-3 text-sm focus:outline-none transition-colors duration-300"
             />
-            <button className="bg-green-600 text-white text-sm font-bold px-6 hover:bg-green-700 transition">
-              {t.join}
+            <button id="newsletter-submit" className="btn-gold text-sm px-6 py-3 whitespace-nowrap !rounded-full">
+              {t.newsletter.btn}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="max-w-7xl mx-auto border-t border-gold-500/20 pt-8 flex flex-col md:flex-row justify-between items-center gap-6 opacity-80">
-        <p className="text-sm font-bold text-green-700">
-          {t.rights}
-        </p>
-        <div className="flex gap-8 text-sm font-semibold">
-          <Link to="/privacy" className="hover:text-gold-600 transition">
-            {t.privacy}
-          </Link>
-          <Link to="/terms" className="hover:text-gold-600 transition">
-            {t.terms}
-          </Link>
+      {/* ═══ MAIN FOOTER GRID ═══ */}
+      <div className="max-w-[1400px] mx-auto px-6 md:px-10 py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12">
+
+          {/* ── Col 1: Brand ── */}
+          <div>
+            <div className="flex items-center gap-3 mb-5">
+              <Icon icon="mdi:leaf" className="text-3xl" style={{ color: "#D4AF37" }} />
+              <div>
+                <div className="font-heading font-extrabold text-xl tracking-widest" style={{ color: "#fff" }}>
+                  YAFOUR
+                </div>
+                <div className="text-[9px] tracking-[0.3em] uppercase" style={{ color: "#D4AF37" }}>
+                  {isArabic ? "فندق ومنتجع" : "Hotel & Resort"}
+                </div>
+              </div>
+            </div>
+            <p className="text-sm italic font-medium mb-4" style={{ color: "#D4AF37" }}>
+              {t.brand.tagline}
+            </p>
+            <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(255,255,255,0.65)" }}>
+              {t.brand.desc}
+            </p>
+            {/* Stars */}
+            <div className="flex items-center gap-1 mb-6">
+              {[...Array(5)].map((_, i) => (
+                <Icon key={i} icon="mdi:star" style={{ color: "#D4AF37", fontSize: "1rem" }} />
+              ))}
+            </div>
+            {/* Socials */}
+            <div className="flex gap-3">
+              {socials.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={s.label}
+                  className="w-9 h-9 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  style={{
+                    border: "1px solid rgba(255,255,255,0.2)",
+                    color: "rgba(255,255,255,0.65)",
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.border = "1px solid #D4AF37";
+                    e.currentTarget.style.color = "#D4AF37";
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.border = "1px solid rgba(255,255,255,0.2)";
+                    e.currentTarget.style.color = "rgba(255,255,255,0.65)";
+                  }}
+                >
+                  <Icon icon={s.icon} className="text-base" />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Col 2: Explore ── */}
+          <div>
+            <h4 className="font-heading font-bold text-base mb-6 tracking-wide" style={{ color: "#fff" }}>
+              {t.explore.title}
+            </h4>
+            <ul className="space-y-3">
+              {t.explore.links.map((link, i) => (
+                <li key={i}>
+                  <Link
+                    to={link.path}
+                    className="text-sm flex items-center gap-2 group transition-colors duration-300"
+                    style={{ color: "rgba(255,255,255,0.65)" }}
+                    onMouseEnter={e => { e.currentTarget.style.color = "#D4AF37"; }}
+                    onMouseLeave={e => { e.currentTarget.style.color = "rgba(255,255,255,0.65)"; }}
+                  >
+                    <span
+                      className="inline-block h-px transition-all duration-300"
+                      style={{ width: "12px", background: "rgba(212,175,55,0.4)" }}
+                    />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* ── Col 3: Services ── */}
+          <div>
+            <h4 className="font-heading font-bold text-base mb-6 tracking-wide" style={{ color: "#fff" }}>
+              {t.services.title}
+            </h4>
+            <ul className="space-y-3">
+              {t.services.items.map((item, i) => (
+                <li key={i} className="flex items-center gap-3 text-sm" style={{ color: "rgba(255,255,255,0.65)" }}>
+                  <Icon icon={item.icon} className="text-base flex-shrink-0" style={{ color: "#D4AF37" }} />
+                  <span>{item.label}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* ── Col 4: Contact ── */}
+          <div>
+            <h4 className="font-heading font-bold text-base mb-6 tracking-wide" style={{ color: "#fff" }}>
+              {t.contact.title}
+            </h4>
+            <ul className="space-y-4">
+              <li className="flex items-start gap-3 text-sm" style={{ color: "rgba(255,255,255,0.65)" }}>
+                <Icon icon="mdi:map-marker" className="text-lg mt-0.5 flex-shrink-0" style={{ color: "#D4AF37" }} />
+                <span>{t.contact.address}</span>
+              </li>
+              {[
+                { icon: "mdi:phone",         href: `tel:${t.contact.phone}`,           val: t.contact.phone,    ltr: true },
+                { icon: "mdi:whatsapp",      href: `https://wa.me/963933123456`,        val: t.contact.whatsapp, ltr: true, blank: true },
+                { icon: "mdi:email-outline", href: `mailto:${t.contact.email}`,         val: t.contact.email },
+              ].map((item, i) => (
+                <li key={i}>
+                  <a
+                    href={item.href}
+                    target={item.blank ? "_blank" : "_self"}
+                    rel={item.blank ? "noreferrer" : ""}
+                    className="flex items-center gap-3 text-sm transition-colors duration-300"
+                    style={{ color: "rgba(255,255,255,0.65)" }}
+                    onMouseEnter={e => { e.currentTarget.style.color = "#D4AF37"; }}
+                    onMouseLeave={e => { e.currentTarget.style.color = "rgba(255,255,255,0.65)"; }}
+                  >
+                    <Icon icon={item.icon} className="text-lg flex-shrink-0" style={{ color: "#D4AF37" }} />
+                    <span dir={item.ltr ? "ltr" : "auto"}>{item.val}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <Link
+              to="/book"
+              id="footer-book-btn"
+              className="mt-8 inline-flex items-center gap-2 btn-gold text-sm px-6 py-2.5"
+            >
+              <Icon icon="mdi:calendar-check" />
+              {isArabic ? "احجز الآن" : "Book Now"}
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      {/* ═══ COPYRIGHT BAR ═══ */}
+      <div style={{ borderTop: "1px solid rgba(255,255,255,0.08)", background: BG_DEEPER }} className="py-5 px-6">
+        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
+          <p>{t.legal.rights}</p>
+          <div className="flex items-center gap-1.5" style={{ color: "rgba(212,175,55,0.65)" }}>
+            <Icon icon="mdi:leaf" className="text-sm" />
+            <span className="text-[10px] tracking-widest uppercase">
+              {isArabic ? "صُنع بشغف في سوريا" : "Crafted with passion in Syria"}
+            </span>
+          </div>
         </div>
       </div>
     </footer>

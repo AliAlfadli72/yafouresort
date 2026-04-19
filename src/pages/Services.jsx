@@ -1,181 +1,227 @@
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
+import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import OptimizedImage from "../components/OptimizedImage";
 
-const Reveal = ({ children, delay = 0 }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true, margin: "-100px" }}
-    transition={{ duration: 0.8, delay }}
-  >
-    {children}
-  </motion.div>
-);
+const Reveal = ({ children, delay = 0, className = "" }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  return (
+    <motion.div ref={ref}
+      initial={{ opacity: 0, y: 36 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+const services = (isArabic) => [
+  {
+    icon:  "mdi:pool",
+    title: isArabic ? "مجمع المسابح الفاخر" : "Luxury Pool Complex",
+    desc:  isArabic
+      ? "ثلاثة مسابح مجهزة بأحدث التقنيات: مسبح خارجي بانورامي، مسبح داخلي مغطى، ومسبح للأطفال. درجات حرارة مضبوطة على مدار الساعة."
+      : "Three state-of-the-art pools: panoramic outdoor pool, covered indoor pool, and children's pool. Temperature controlled around the clock.",
+    img:   "/pool.webp",
+    features: isArabic
+      ? ["مسبح بانورامي خارجي", "مسبح داخلي مدفأ", "كبائن واسعة مريحة", "طاقم إنقاذ متخصص"]
+      : ["Panoramic Outdoor Pool", "Heated Indoor Pool", "Spacious Private Cabanas", "Specialist Lifeguard Team"],
+  },
+  {
+    icon:  "mdi:spa",
+    title: isArabic ? "السبا ومركز الاسترخاء" : "Spa & Wellness Center",
+    desc:  isArabic
+      ? "ملاذ للاسترخاء التام مع أحدث تقنيات العناية الصحية. جيئ بجسدك إلى التوازن من خلال جلسات المساج، الحمام المغربي، والعلاجات الطبيعية."
+      : "A sanctuary for complete relaxation with the latest wellness technologies. Balance your body through massage sessions, Moroccan bath, and natural treatments.",
+    img:   "https://images.unsplash.com/photo-1544161515-4ad6ce67e340?w=800&q=78&fm=webp&auto=format",
+    features: isArabic
+      ? ["مساج سويدي وشرقي", "حمام مغربي أصيل", "سونا وبخار", "علاجات طبيعية بالأعشاب"]
+      : ["Swedish & Oriental Massage", "Authentic Moroccan Bath", "Sauna & Steam Room", "Natural Herbal Treatments"],
+  },
+  {
+    icon:  "mdi:horse-variant",
+    title: isArabic ? "نادي الفروسية" : "Equestrian Club",
+    desc:  isArabic
+      ? "تجربة فروسية لا مثيل لها على أرض يعفور الخضراء. نقدم دروساً للمبتدئين وركض حر للمحترفين في أجواء ريفية أصيلة."
+      : "An unmatched equestrian experience on Yafour's lush grounds. We offer lessons for beginners and free riding for professionals in an authentic rural atmosphere.",
+    img:   "/hero.webp",
+    features: isArabic
+      ? ["خيول مُدربة عالية الجودة", "مدربون معتمدون دولياً", "مسار ركض آمن ومجهز", "دروس للجميع (أطفال / بالغون)"]
+      : ["High-Quality Trained Horses", "Internationally Certified Trainers", "Safe & Equipped Riding Track", "Classes for All (Children / Adults)"],
+  },
+  {
+    icon:  "mdi:party-popper",
+    title: isArabic ? "قاعات الأعراس والمناسبات" : "Wedding & Event Halls",
+    desc:  isArabic
+      ? "مساحات استثنائية لأرقى المناسبات الاجتماعية. من أفراح الأحلام إلى حفلات التخرج، نوفر كل شيء بأعلى معايير الجودة."
+      : "Exceptional spaces for society's finest occasions. From dream weddings to graduation parties, we provide everything to the highest quality standards.",
+    img:   "https://images.unsplash.com/photo-1478146896981-b80fe463b330?w=800&q=78&fm=webp&auto=format",
+    features: isArabic
+      ? ["سعة تستيعاب تصل لـ 500 شخص", "أطقم كوادر متخصصة", "خيارات قوائم طعام متنوعة", "تنسيق ديكور احترافي"]
+      : ["Capacity up to 500 guests", "Specialized Event Teams", "Diverse Menu Options", "Professional Décor Coordination"],
+  },
+  {
+    icon:  "mdi:human-capacity-increase",
+    title: isArabic ? "قاعات المؤتمرات والأعمال" : "Conference & Business Halls",
+    desc:  isArabic
+      ? "بيئات عمل احترافية مجهزة بأحدث تقنيات الاتصال والعرض. مثالية للمؤتمرات الكبرى، ورش العمل، واجتماعات الشركات."
+      : "Professional work environments equipped with the latest communication and presentation technologies. Perfect for major conferences, workshops, and corporate meetings.",
+    img:   "https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=800&q=78&fm=webp&auto=format",
+    features: isArabic
+      ? ["شاشات عرض عالية الدقة", "نظام صوت وتسجيل متكامل", "إنترنت فائق السرعة", "ضيافة أعمال راقية"]
+      : ["High-Resolution Display Screens", "Integrated Audio & Recording System", "Ultra-Fast Internet", "Premium Business Hospitality"],
+  },
+  {
+    icon:  "mdi:dumbbell",
+    title: isArabic ? "النادي الرياضي" : "Sports & Fitness Club",
+    desc:  isArabic
+      ? "نادٍ رياضي حديث مجهز بأحدث الأجهزة العالمية. مفتوح لضيوف المنتجع على مدار الساعة مع وجود مدربين شخصيين متخصصين."
+      : "A modern fitness club equipped with the latest international equipment. Open to resort guests around the clock with specialized personal trainers available.",
+    img:   "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=78&fm=webp&auto=format",
+    features: isArabic
+      ? ["أجهزة كارديو وقوة متطورة", "مدربون شخصيون", "يوغا وبيلاتس", "فتحات نهارية ومسائية"]
+      : ["Advanced Cardio & Strength Equipment", "Personal Trainers", "Yoga & Pilates Classes", "Day & Evening Sessions"],
+  },
+];
 
 export default function Services({ lang }) {
   const isArabic = lang === "ar";
-
-  const t = {
-    heroTitle: isArabic ? "خدمات استثنائية" : "Exceptional Services",
-    heroSubtitle: isArabic 
-      ? "تجارب مُصممة خصيصاً لراحتك ورفاهيتك في منتجع يعفور" 
-      : "Experiences tailored specifically for your comfort and well-being at Yafour Resort",
-    exploreBtn: isArabic ? "اكتشف الخدمات" : "Explore Services",
-    discoverMore: isArabic ? "المزيد من التفاصيل" : "Discover More",
-  };
-
-  const services = [
-    {
-      id: "spa",
-      title: isArabic ? "السبا والمركز الصحي" : "Spa & Wellness Center",
-      description: isArabic 
-        ? "استعد حيويتك في السبا الفاخر الذي يوفر جلسات تدليك وعلاجات مائية ومرافق جاكوزي ضمن أجواء هادئة تأخذك بعيداً عن صخب الحياة للوصول إلى الاسترخاء التام."
-        : "Rejuvenate in our luxury spa offering massage sessions, hydrotherapy, and jacuzzi facilities within a tranquil atmosphere taking you away from the bustle of life to absolute relaxation.",
-      features: isArabic ? ["جلسات تدليك", "ساونا وجاكوزي", "عناية بالبشرة", "غرف استرخاء"] : ["Massage Therapy", "Sauna & Jacuzzi", "Skin Care", "Relaxation Rooms"],
-      img: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874?q=80&w=2670&auto=format&fit=crop",
-      icon: "mdi:spa",
-    },
-    {
-      id: "pool",
-      title: isArabic ? "المسابح الفاخرة" : "Luxury Pools",
-      description: isArabic
-        ? "استمتع بأشعة الشمس الساحرة في مسابحنا الخارجية المحاطة بالحدائق الغناء، أو استرخِ في المسبح الداخلي المُدفأ المتاح طوال العام والذي يقدم لك تجربة سباحة فريدة."
-        : "Enjoy the enchanting sunshine in our outdoor pools surrounded by lush gardens, or relax in the year-round heated indoor pool providing a unique swimming experience.",
-      features: isArabic ? ["مسبح أوليمبي خارجي", "مسبح داخلي مدفأ", "أسرة تشمس فاخرة", "خدمة التراس المباشرة"] : ["Olympic Outdoor Pool", "Heated Indoor Pool", "Luxury Sunbeds", "Direct Terrace Service"],
-      img: "https://images.unsplash.com/photo-1582610116397-edb318620f90?q=80&w=2670&auto=format&fit=crop",
-      icon: "mdi:pool",
-    },
-    {
-      id: "gym",
-      title: isArabic ? "النادي الرياضي (GYM)" : "Fitness Center (GYM)",
-      description: isArabic
-        ? "حافظ على لياقتك البدنية خلال إقامتك مع صالتنا الرياضية المجهزة بأحدث الآلات التكنولوجية، وبإشراف مدربين محترفين يقدمون لك المشورة والدعم لتحقيق أهدافك."
-        : "Maintain your fitness during your stay with our gym equipped with the latest technology, supervised by professional trainers providing advice and support to achieve your goals.",
-      features: isArabic ? ["معدات حديثة ذكية", "مدربون معتمدون", "استوديو يوجا", "بار للمشروبات الصحية"] : ["Modern Smart Equip.", "Certified Trainers", "Yoga Studio", "Health Drinks Bar"],
-      img: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2670&auto=format&fit=crop",
-      icon: "mdi:weight-lifter",
-    },
-    {
-      id: "events",
-      title: isArabic ? "قاعات المؤتمرات والاحتفالات" : "Conferences & Events Halls",
-      description: isArabic
-        ? "نوفر مساحات شاسعة وقاعات مجهزة بأحدث التقنيات الصوتية والمرئية لضمان نجاح اجتماعاتكم، مؤتمراتكم، وأفراحكم الخاصة ضمن بيئة تنظيمية لا مثيل لها."
-        : "We provide expansive spaces and halls equipped with the latest audiovisual technologies to ensure the success of your meetings, conferences, and private celebrations in an unparalleled organizational environment.",
-      features: isArabic ? ["قاعات اجتماعات فخمة", "تنظيم حفلات زفاف", "تقديم الطعام الشامل", "معدات تقنية متطورة"] : ["Luxury Meeting Rooms", "Wedding Planning", "Comprehensive Catering", "Advanced Tech Equip."],
-      img: "https://images.unsplash.com/photo-1519167758481-83f550bb49b3?q=80&w=2670&auto=format&fit=crop",
-      icon: "mdi:curtains",
-    }
-  ];
+  const serviceData = services(isArabic);
 
   return (
-    <div className={`bg-ivory-200 text-charcoal-800 antialiased min-h-screen ${isArabic ? "font-serif-ar" : "font-sans"}`} dir={isArabic ? "rtl" : "ltr"}>
-      
-      {/* ================= HERO SECTION ================= */}
-      <section className="relative h-[70vh] flex items-center justify-center overflow-hidden bg-charcoal-900">
-        <div className="absolute inset-0 bg-black/40 z-10" />
-        <img 
-          src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=2670&auto=format&fit=crop" 
-          className="absolute inset-0 w-full h-full object-cover animate-cinematic-zoom"
-          alt="Spa Resort Services"
+    <div className="bg-ivory-200 text-charcoal-800 antialiased" dir={isArabic ? "rtl" : "ltr"}>
+
+      {/* ===== HERO ===== */}
+      <section className="relative h-[55vh] flex items-center justify-center overflow-hidden bg-forest-600">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-35 animate-cinematic-zoom"
+          style={{ backgroundImage: "url('/pool.webp')" }}
         />
-        <div className="relative z-20 text-center text-white px-6 mt-16 text-shadow-lg">
-          <Reveal>
-            <span className="block text-gold-400 font-bold uppercase tracking-widest mb-6 border-b border-gold-400/30 inline-block pb-2">
-                Yafour Resort
-            </span>
-            <h1 className="text-6xl md:text-8xl font-heading font-bold mb-6 text-white drop-shadow-md">{t.heroTitle}</h1>
-            <p className="text-xl md:text-2xl font-bold max-w-3xl mx-auto drop-shadow-lg text-white/95 leading-relaxed">
-              {t.heroSubtitle}
-            </p>
-          </Reveal>
+        <div className="absolute inset-0 overlay-green" />
+        <div className="relative z-10 text-center text-white px-6">
+          <motion.span
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="section-label text-gold-400"
+          >
+            {isArabic ? "ما نقدمه" : "What We Offer"}
+          </motion.span>
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 1 }}
+            className="font-heading font-extrabold text-5xl md:text-6xl mt-2"
+            style={{ textShadow: "0 4px 24px rgba(0,0,0,0.6)" }}
+          >
+            {isArabic ? "خدمات المنتجع" : "Resort Services"}
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 1 }}
+            className="text-white/70 text-lg mt-4 max-w-xl mx-auto"
+          >
+            {isArabic
+              ? "كل ما تحتاجه لإقامة فاخرة كاملة تحت سقف واحد"
+              : "Everything you need for a complete luxury stay under one roof"
+            }
+          </motion.p>
         </div>
       </section>
 
-      {/* ================= SERVICES LISTING ================= */}
-      <section className="py-24 px-6 md:px-12 bg-white">
-        <div className="max-w-7xl mx-auto space-y-32">
-          
-          {services.map((service, idx) => (
-            <div key={service.id} className={`flex flex-col ${idx % 2 !== 0 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-12 lg:gap-20 items-center`}>
-              
-              {/* Image Side */}
-              <div className="w-full lg:w-1/2 relative">
-                <Reveal>
-                    <div className="relative rounded-[2rem] overflow-hidden shadow-2xl aspect-[4/3] group">
-                        <motion.img 
-                            whileHover={{ scale: 1.05 }}
-                            transition={{ duration: 0.8 }}
-                            src={service.img} 
-                            alt={service.title}
-                            className="w-full h-full object-cover cursor-pointer"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    </div>
-                    {/* Decorative element */}
-                    <div className={`absolute -bottom-6 ${idx % 2 !== 0 ? '-left-6' : '-right-6'} w-32 h-32 bg-gold-400/20 rounded-full blur-3xl -z-10`} />
-                </Reveal>
-              </div>
-
-              {/* Content Side */}
-              <div className="w-full lg:w-1/2">
-                <Reveal delay={0.2}>
-                  <div className="flex items-center gap-4 mb-6">
-                      <div className="w-14 h-14 rounded-full bg-green-50 flex items-center justify-center text-green-700 shadow-sm border border-green-100">
-                          <Icon icon={service.icon} className="text-3xl" />
-                      </div>
-                      <span className="text-gold-600 font-bold uppercase tracking-widest text-sm">
-                          Yafour {service.id}
-                      </span>
+      {/* ===== SERVICES GRID ===== */}
+      <section className="py-24 px-6">
+        <div className="max-w-[1300px] mx-auto space-y-24">
+          {serviceData.map((service, i) => (
+            <Reveal key={i} delay={0.1}>
+              <div className={`grid lg:grid-cols-2 gap-16 items-center ${i % 2 !== 0 ? "lg:direction-rtl" : ""}`}>
+                {/* Image */}
+                <div className={i % 2 !== 0 ? "order-2 lg:order-2" : "order-2 lg:order-1"}>
+                  <div className="aspect-[16/10] rounded-3xl overflow-hidden shadow-green-deep">
+                    <OptimizedImage
+                      src={service.img}
+                      alt={service.title}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000"
+                    />
                   </div>
-                  
-                  <h2 className="text-4xl md:text-5xl font-heading font-bold text-charcoal-900 mb-6 drop-shadow-sm">
-                      {service.title}
+                </div>
+
+                {/* Text */}
+                <div className={i % 2 !== 0 ? "order-1 lg:order-1" : "order-1 lg:order-2"}>
+                  <div className="w-14 h-14 rounded-2xl bg-forest-600/10 flex items-center justify-center mb-6">
+                    <Icon icon={service.icon} className="text-3xl text-forest-600" />
+                  </div>
+                  <span className="section-label">{isArabic ? "خدماتنا" : "Our Services"}</span>
+                  <h2 className="font-heading font-extrabold text-3xl md:text-4xl text-charcoal-900 mt-2 mb-5 leading-[1.2]">
+                    {service.title}
                   </h2>
-                  
-                  <p className="text-lg text-charcoal-800/80 leading-relaxed mb-10 text-justify">
-                      {service.description}
+                  <p className="text-charcoal-600 text-lg leading-relaxed mb-8">
+                    {service.desc}
                   </p>
-                  
-                  <div className="grid grid-cols-2 gap-4 mb-10">
-                      {service.features.map((feature, fIdx) => (
-                          <div key={fIdx} className="flex items-center gap-2 text-charcoal-800 font-bold bg-ivory-400/50 px-4 py-3 rounded-xl border border-ivory-400">
-                              <Icon icon="mdi:check-circle" className="text-green-600 text-lg flex-shrink-0" />
-                              <span className="text-sm">{feature}</span>
-                          </div>
-                      ))}
-                  </div>
 
-                  <button className="inline-flex items-center gap-2 px-8 py-4 bg-white border-2 border-gold-500 text-gold-600 font-bold uppercase tracking-widest rounded-xl hover:bg-gold-50 transition-colors shadow-sm">
-                      <span>{t.discoverMore}</span>
-                      <Icon icon={isArabic ? "mdi:arrow-left" : "mdi:arrow-right"} className="text-lg" />
-                  </button>
-                </Reveal>
+                  {/* Features List */}
+                  <ul className="space-y-3 mb-8">
+                    {service.features.map((f, j) => (
+                      <li key={j} className="flex items-center gap-3 text-charcoal-700">
+                        <div className="w-6 h-6 rounded-full bg-gold-500/15 flex items-center justify-center flex-shrink-0">
+                          <Icon icon="mdi:check" className="text-gold-600 text-sm" />
+                        </div>
+                        <span className="text-sm font-medium">{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Link
+                    to="/book"
+                    id={`service-book-${i}`}
+                    className="inline-flex items-center gap-2 font-bold text-forest-600 border-b-2 border-forest-600 pb-0.5 hover:text-forest-500 transition-colors duration-300"
+                  >
+                    {isArabic ? "احجز هذه الخدمة" : "Book This Service"}
+                    <Icon icon={isArabic ? "mdi:arrow-left" : "mdi:arrow-right"} />
+                  </Link>
+                </div>
               </div>
-
-            </div>
+            </Reveal>
           ))}
-
         </div>
       </section>
 
-      {/* ================= CALL TO ACTION ================= */}
-      <section className="py-24 bg-green-900 text-white relative flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=2670&auto=format&fit=crop')] bg-cover mix-blend-overlay opacity-20"></div>
-        <div className="relative z-10 text-center max-w-3xl mx-auto px-6">
-          <Reveal>
-            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6">
-                {isArabic ? "جاهز لتجربة لا تُنسى؟" : "Ready for an unforgettable experience?"}
-            </h2>
-            <p className="text-xl text-white/80 mb-10">
-                {isArabic ? "فريق كونسيرج يعفور مستعد دائماً لتلبية كافة طلباتك وترتيب نشاطاتك." : "The Yafour concierge team is always ready to fulfill your every request and arrange your activities."}
-            </p>
-            <a href="/contact" className="inline-flex items-center justify-center px-10 py-4 bg-gold-500 text-white font-bold uppercase tracking-widest hover:bg-gold-600 transition-colors rounded-xl shadow-luxury">
-                {isArabic ? "تواصل مع الكونسيرج" : "Contact Concierge"}
+      {/* ===== CTA ===== */}
+      <section className="py-24 bg-forest-600 text-white text-center px-6">
+        <Reveal>
+          <span className="section-label text-gold-400">{isArabic ? "تواصل معنا" : "Get In Touch"}</span>
+          <h2 className="font-heading font-extrabold text-4xl md:text-5xl mt-2 mb-4">
+            {isArabic ? "هل لديك استفسار حول خدماتنا؟" : "Questions About Our Services?"}
+          </h2>
+          <p className="text-white/70 text-lg mb-8 max-w-xl mx-auto">
+            {isArabic
+              ? "فريقنا المتخصص جاهز للإجابة على استفساراتك وتلبية طلباتك على مدار الساعة."
+              : "Our specialized team is ready to answer your questions and fulfill your requests around the clock."
+            }
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/contact" id="services-contact-btn" className="btn-gold inline-flex items-center gap-3 text-sm">
+              <Icon icon="mdi:phone" className="text-lg" />
+              {isArabic ? "تواصل معنا" : "Contact Us"}
+            </Link>
+            <a
+              href="https://wa.me/963933123456"
+              target="_blank"
+              rel="noreferrer"
+              id="services-whatsapp-btn"
+              className="btn-white-glass inline-flex items-center gap-3 text-sm"
+            >
+              <Icon icon="mdi:whatsapp" className="text-lg" />
+              WhatsApp
             </a>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
       </section>
-
     </div>
   );
 }

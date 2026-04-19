@@ -35,7 +35,7 @@ export default function Dining({ lang }) {
         ? "المطعم الرئيسي في الفندق يقدم بوفيهاً مفتوحاً للإفطار والغداء والعشاء مع تنوع غني يرضي كل الأذواق وسط إطلالة خلابة."
         : "The main hotel restaurant offers an open buffet for breakfast, lunch, and dinner with a rich variety satisfying all tastes with stunning views.",
       time: isArabic ? "٦:٣٠ ص - ١١:٣٠ م" : "6:30 AM - 11:30 PM",
-      img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1",
+      img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=800&q=78&fm=webp&auto=format",
     },
     {
       name: isArabic ? "أنيس كافيه" : "Anis Cafe",
@@ -44,7 +44,7 @@ export default function Dining({ lang }) {
         ? "وجهة مثالية للاجتماعات السريعة أو الاسترخاء بعد الظهر مع تشكيلة من القهوة الممتازة والحلويات الفرنسية والشامية."
         : "A perfect destination for quick meetings or afternoon relaxation with a selection of premium coffee and French-Levantine pastries.",
       time: isArabic ? "٨:٠٠ ص - ١٢:٠٠ ص" : "8:00 AM - 12:00 AM",
-      img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24",
+      img: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&q=78&fm=webp&auto=format",
     },
     {
       name: isArabic ? "تراس المسبح" : "Poolside Terrace",
@@ -53,7 +53,7 @@ export default function Dining({ lang }) {
         ? "استمتع بأشعة الشمس والمناظر المنعشة مع قائمة من العصائر الطازجة والوجبات الخفيفة والبيتزا المحضرة على الحطب."
         : "Enjoy the sunshine and refreshing views with a menu of fresh juices, snacks, and wood-fired pizza.",
       time: isArabic ? "١٠:٠٠ ص - غروب الشمس" : "10:00 AM - Sunset",
-      img: "https://images.unsplash.com/photo-1537047902294-62a40c20a6ae",
+      img: "https://images.unsplash.com/photo-1537047902294-62a40c20a6ae?w=800&q=78&fm=webp&auto=format",
     },
   ];
 
@@ -64,7 +64,7 @@ export default function Dining({ lang }) {
       <section className="relative h-[70vh] flex items-center justify-center overflow-hidden bg-charcoal-900">
         <div className="absolute inset-0 bg-black/40 z-10" />
         <img 
-          src="https://images.unsplash.com/photo-1414235077428-338988a2e8c0" 
+          src="https://images.unsplash.com/photo-1414235077428-338988a2e8c0?w=1000&q=78&fm=webp&auto=format" 
           className="absolute inset-0 w-full h-full object-cover animate-cinematic-zoom"
           alt="Luxury Dining"
         />
@@ -135,7 +135,7 @@ export default function Dining({ lang }) {
 
       {/* ================= ROOM SERVICE BANNER ================= */}
       <section className="py-24 bg-green-800 text-white relative flex items-center overflow-hidden">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1571896349842-33c89424de2d')] bg-cover bg-center mix-blend-overlay opacity-30"></div>
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&q=60&fm=webp&auto=format')] bg-cover bg-center mix-blend-overlay opacity-30"></div>
         <div className="max-w-7xl mx-auto px-6 w-full relative z-10 text-center">
             <Reveal>
                 <Icon icon="mdi:room-service-outline" className="text-6xl text-gold-400 mx-auto mb-6" />

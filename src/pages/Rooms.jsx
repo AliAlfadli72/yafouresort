@@ -1,207 +1,350 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
 
-// Animation Helper
-const Reveal = ({ children, delay = 0 }) => (
-  <motion.div
-    initial={{ opacity: 0, y: 30 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.8, delay }}
-  >
-    {children}
-  </motion.div>
-);
+const Reveal = ({ children, delay = 0, className = "" }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  return (
+    <motion.div ref={ref}
+      initial={{ opacity: 0, y: 36 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+const rooms = (isArabic) => [
+  {
+    id: "deluxe",
+    img:      "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=78&fm=webp&auto=format",
+    category: isArabic ? "غرفة ديلوكس" : "Deluxe Room",
+    title:    isArabic ? "الغرفة الديلوكس الفاخرة" : "Luxury Deluxe Room",
+    size:     "35 m²",
+    view:     isArabic ? "إطلالة طبيعية" : "Nature View",
+    capacity: 2,
+    price:    120,
+    amenities: [
+      { icon: "mdi:wifi",                label: isArabic ? "إنترنت" : "Wi-Fi" },
+      { icon: "mdi:television-play",     label: isArabic ? "تلفاز ذكي" : "Smart TV" },
+      { icon: "mdi:air-conditioner",     label: isArabic ? "تكييف" : "A/C" },
+      { icon: "mdi:coffee",              label: isArabic ? "قهوة" : "Coffee" },
+      { icon: "mdi:parking",             label: isArabic ? "موقف" : "Parking" },
+    ],
+    features: isArabic
+      ? ["سرير كينج فاخر", "حمام رخامي", "شرفة خاصة", "إفطار مضمون"]
+      : ["King Luxury Bed", "Marble Bathroom", "Private Balcony", "Breakfast Included"],
+    tag: null,
+  },
+  {
+    id: "superior",
+    img:      "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&q=78&fm=webp&auto=format",
+    category: isArabic ? "غرفة سوبيريور" : "Superior Room",
+    title:    isArabic ? "الغرفة السوبيريور" : "Superior Room",
+    size:     "45 m²",
+    view:     isArabic ? "إطلالة حديقة" : "Garden View",
+    capacity: 2,
+    price:    160,
+    amenities: [
+      { icon: "mdi:wifi",            label: isArabic ? "إنترنت" : "Wi-Fi" },
+      { icon: "mdi:television-play", label: isArabic ? "تلفاز ذكي" : "Smart TV" },
+      { icon: "mdi:bathtub",         label: isArabic ? "بانيو" : "Bathtub" },
+      { icon: "mdi:room-service",    label: isArabic ? "خدمة غرف" : "Room Service" },
+    ],
+    features: isArabic
+      ? ["سرير كوين فاخر", "جلسة جانبية", "إطلالة الحديقة", "إفطار مضمون"]
+      : ["Queen Luxury Bed", "Sitting Area", "Garden Views", "Breakfast Included"],
+    tag: isArabic ? "الأكثر طلباً" : "Most Popular",
+  },
+  {
+    id: "executive",
+    img:      "/room-suite.png",
+    category: isArabic ? "جناح تنفيذي" : "Executive Suite",
+    title:    isArabic ? "الجناح التنفيذي" : "Executive Suite",
+    size:     "65 m²",
+    view:     isArabic ? "إطلالة بانورامية" : "Panoramic View",
+    capacity: 3,
+    price:    250,
+    amenities: [
+      { icon: "mdi:wifi",                label: isArabic ? "إنترنت" : "Wi-Fi" },
+      { icon: "mdi:television-play",     label: isArabic ? "تلفاز ذكي" : "Smart TV" },
+      { icon: "mdi:bathtub",             label: isArabic ? "جاكوزي" : "Jacuzzi" },
+      { icon: "mdi:room-service",        label: isArabic ? "خدمة VIP" : "VIP Service" },
+      { icon: "mdi:glass-cocktail",      label: isArabic ? "ميني بار" : "Mini Bar" },
+    ],
+    features: isArabic
+      ? ["غرفة معيشة منفصلة", "جاكوزي فاخر", "شرفة بانورامية", "خدمة كونسيرج"]
+      : ["Separate Living Room", "Luxury Jacuzzi", "Panoramic Terrace", "Concierge Service"],
+    tag: null,
+  },
+  {
+    id: "royal",
+    img:      "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&q=78&fm=webp&auto=format",
+    category: isArabic ? "الجناح الملكي" : "Royal Suite",
+    title:    isArabic ? "الجناح الملكي الفاخر" : "Grand Royal Suite",
+    size:     "120 m²",
+    view:     isArabic ? "إطلالة VIP بانورامية" : "VIP Panoramic View",
+    capacity: 4,
+    price:    480,
+    amenities: [
+      { icon: "mdi:wifi",         label: isArabic ? "إنترنت" : "Wi-Fi" },
+      { icon: "mdi:jacuzzi",      label: isArabic ? "جاكوزي" : "Jacuzzi" },
+      { icon: "mdi:pool",         label: isArabic ? "مسبح خاص" : "Private Pool" },
+      { icon: "mdi:room-service", label: isArabic ? "بتلر" : "Butler" },
+      { icon: "mdi:car-side",     label: isArabic ? "ليموزين" : "Limousine" },
+    ],
+    features: isArabic
+      ? ["مسبح خاص", "خدمة بتلر 24/7", "غرفتا نوم", "طاروق على السطح"]
+      : ["Private Pool", "24/7 Butler Service", "Two Bedrooms", "Rooftop Terrace"],
+    tag: isArabic ? "النخبة" : "Elite",
+  },
+  {
+    id: "chalet",
+    img:      "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=78&fm=webp&auto=format",
+    category: isArabic ? "شاليه الطبيعة" : "Nature Chalet",
+    title:    isArabic ? "شاليه الطبيعة المنعزل" : "Secluded Nature Chalet",
+    size:     "80 m²",
+    view:     isArabic ? "وسط الغابة" : "Forest Immersion",
+    capacity: 4,
+    price:    350,
+    amenities: [
+      { icon: "mdi:wifi",       label: isArabic ? "إنترنت" : "Wi-Fi" },
+      { icon: "mdi:fireplace",  label: isArabic ? "مدفأة" : "Fireplace" },
+      { icon: "mdi:balcony",    label: isArabic ? "تراس" : "Terrace" },
+      { icon: "mdi:nature",     label: isArabic ? "طبيعة" : "Nature" },
+    ],
+    features: isArabic
+      ? ["فناء خارجي خاص", "مدفأة رومانتيكية", "عزل تام في الطبيعة", "إفطار ريفي"]
+      : ["Private Outdoor Patio", "Romantic Fireplace", "Total Nature Seclusion", "Rustic Breakfast"],
+    tag: isArabic ? "الأكثر رومانسية" : "Most Romantic",
+  },
+  {
+    id: "family",
+    img:      "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=78&fm=webp&auto=format",
+    category: isArabic ? "جناح العائلة" : "Family Suite",
+    title:    isArabic ? "جناح العائلة الفسيح" : "Spacious Family Suite",
+    size:     "95 m²",
+    view:     isArabic ? "إطلالة المسبح" : "Pool View",
+    capacity: 6,
+    price:    420,
+    amenities: [
+      { icon: "mdi:wifi",            label: isArabic ? "إنترنت" : "Wi-Fi" },
+      { icon: "mdi:baby-carriage",   label: isArabic ? "ودود للأطفال" : "Child-Friendly" },
+      { icon: "mdi:television-play", label: isArabic ? "تلفاز ذكي" : "Smart TV" },
+      { icon: "mdi:kitchen",         label: isArabic ? "مطبخ صغير" : "Kitchenette" },
+    ],
+    features: isArabic
+      ? ["غرفتا نوم مستقلتان", "مطبخ صغير", "إطلالة المسبح الرائعة", "ألعاب للأطفال"]
+      : ["Two Separate Bedrooms", "Kitchenette", "Amazing Pool Views", "Children's Entertainment"],
+    tag: null,
+  },
+];
 
 export default function Rooms({ lang }) {
   const isArabic = lang === "ar";
-  const containerRef = useRef(null);
+  const [filter, setFilter] = useState("all");
+  const roomData = rooms(isArabic);
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"]
-  });
-
-  const t = {
-    heroTitle: isArabic ? "الغرف والأجنحة" : "Rooms & Suites",
-    heroSubtitle: isArabic
-      ? "تجسيد للراحة المطلقة وسط الطبيعة الخلابة."
-      : "The embodiment of absolute comfort amidst breathtaking nature.",
-    collection: isArabic ? "مجموعتنا الفاخرة" : "Our Luxury Collection",
-    collectionSub: isArabic ? "مساحات تعكس ذوقك الرفيع" : "Spaces Reflecting Refined Taste",
-    amenitiesTitle: isArabic ? "ميزات الإقامة" : "Stay Features",
-    amenitiesSub: isArabic ? "كل مايلزم لراحتك التامة" : "Everything needed for total comfort",
-    from: isArabic ? "ابتداءً من" : "From",
-    perNight: isArabic ? "لليلة" : "per night",
-    details: isArabic ? "احجز الغرفة" : "Book Room",
-  };
-
-  const amenities = [
-    { icon: "mdi:wifi", title: isArabic ? "إنترنت فائق السرعة" : "High-Speed WiFi", desc: isArabic ? "متاح في كافة أنحاء المنتجع مجاناً" : "Available complimentary throughout the resort" },
-    { icon: "mdi:television-classic", title: isArabic ? "شاشات ذكية" : "Smart TVs", desc: isArabic ? "قياس 55 بوصة مع قنوات فضائية" : "55-inch displays with satellite channels" },
-    { icon: "mdi:camera-control", title: isArabic ? "إطلالات بانورامية" : "Panoramic Views", desc: isArabic ? "شرفات مطلة على المسبح والحدائق" : "Balconies overlooking the pool and gardens" },
-    { icon: "mdi:room-service", title: isArabic ? "خدمة الغرف" : "Room Service", desc: isArabic ? "خدمة مميزة على مدار 24 ساعة" : "Premium 24-hour room service" },
+  const categories = [
+    { key: "all",      label: isArabic ? "الجميع" : "All" },
+    { key: "غرفة",     label: isArabic ? "الغرف" : "Rooms" },
+    { key: "جناح",     label: isArabic ? "الأجنحة" : "Suites" },
+    { key: "شاليه",    label: isArabic ? "الشاليهات" : "Chalets" },
   ];
 
-  const rooms = [
-    {
-      name: isArabic ? "الجناح الملكي" : "Royal Suite",
-      size: "150 m²",
-      desc: isArabic
-        ? "مساحة استثنائية تضم غرفتي نوم وصالة معيشة مع إطلالة خلابة على الطبيعة للباحثين عن الفخامة الفائقة."
-        : "An exceptional space featuring two bedrooms and a living area with breathtaking nature views for ultimate luxury.",
-      price: "$ 500",
-      img: "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
-      features: isArabic ? ["٢ سرير كنغ", "جاكوزي خاص", "تراس كبير"] : ["2 King Beds", "Private Jacuzzi", "Large Terrace"],
-    },
-    {
-      name: isArabic ? "جناح الأمراء" : "Princes Suite",
-      size: "95 m²",
-      desc: isArabic
-        ? "تتميز بتصميم كلاسيكي متناغم مع حداثة التجهيزات ومساحة جلوس مريحة."
-        : "Features a classic design harmonized with modern amenities and a comfortable seating area.",
-      price: "$ 350",
-      img: "https://images.unsplash.com/photo-1590490360182-c33d57733427",
-      features: isArabic ? ["سرير كنغ", "حمام رخامي", "إطلالة مسبح"] : ["1 King Bed", "Marble Bath", "Pool View"],
-    },
-    {
-      name: isArabic ? "غرفة ديلوكس مزدوجة" : "Deluxe Double Room",
-      size: "45 m²",
-      desc: isArabic
-        ? "مثالية للعائلات الصغيرة أو الأصدقاء، تجهيزات راقية وإطلالة مريحة على الحدائق المنسقة."
-        : "Perfect for small families or friends, high-end amenities, and relaxing views of the landscaped gardens.",
-      price: "$ 150",
-      img: "https://images.unsplash.com/photo-1566665797739-1674de7a421a",
-      features: isArabic ? ["سريرا توأم", "بلكونة", "مكتب عمل"] : ["Twin Beds", "Balcony", "Work Desk"],
-    },
-  ];
+  const filtered = filter === "all"
+    ? roomData
+    : roomData.filter(r => r.category.includes(filter) || r.id.includes(filter));
 
   return (
-    <div className={`bg-ivory-200 text-charcoal-800 antialiased min-h-screen ${isArabic ? "font-serif-ar" : "font-sans"}`} dir={isArabic ? "rtl" : "ltr"}>
-      
-      {/* ================= HERO ================= */}
-      <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-black/40 z-10" />
-        <img 
-          src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461" 
-          className="absolute inset-0 w-full h-full object-cover animate-cinematic-zoom"
-          alt="Luxury Hotel Room"
+    <div className="bg-ivory-200 text-charcoal-800 antialiased" dir={isArabic ? "rtl" : "ltr"}>
+
+      {/* ===== HERO ===== */}
+      <section className="relative h-[55vh] flex items-center justify-center overflow-hidden bg-forest-600">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-40 animate-cinematic-zoom"
+          style={{ backgroundImage: "url('/room-suite.webp')" }}
         />
-        <div className="relative z-20 text-center text-white px-6">
-          <Reveal>
-            <span className="block text-gold-400 font-bold uppercase tracking-widest mb-6">Yafour Resort</span>
-            <h1 className="text-6xl md:text-8xl font-heading font-bold mb-6 drop-shadow-lg">
-              {t.heroTitle}
-            </h1>
-            <div className="w-16 h-1 bg-gold-500 mx-auto mb-8 rounded-full shadow-lg" />
-            <p className="text-xl md:text-2xl font-bold max-w-2xl mx-auto drop-shadow-md">
-              {t.heroSubtitle}
-            </p>
-          </Reveal>
+        <div className="absolute inset-0 bg-gradient-to-b from-forest-600/80 to-charcoal-900/70" />
+        <div className="relative z-10 text-center text-white px-6">
+          <motion.span
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="section-label text-gold-400"
+          >
+            {isArabic ? "الإقامة الفاخرة" : "Luxury Accommodations"}
+          </motion.span>
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 1 }}
+            className="font-heading font-extrabold text-5xl md:text-6xl mt-2"
+            style={{ textShadow: "0 4px 24px rgba(0,0,0,0.6)" }}
+          >
+            {isArabic ? "الغرف والأجنحة" : "Rooms & Suites"}
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 1 }}
+            className="text-white/70 text-lg mt-4 max-w-xl mx-auto"
+          >
+            {isArabic
+              ? "اختر إقامتك المثالية من بين مجموعتنا الفاخرة المصممة لراحتك القصوى"
+              : "Choose your perfect stay from our luxury collection designed for your ultimate comfort"
+            }
+          </motion.p>
         </div>
       </section>
 
-      {/* ================= ROOMS COLLECTION ================= */}
-      <section className="py-32 px-6 md:px-16 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-24">
-            <Reveal>
-              <span className="text-gold-600 uppercase tracking-widest text-sm font-bold mb-4 block border-b border-gold-500/20 inline-block pb-2">{t.collection}</span>
-              <h2 className="text-4xl md:text-5xl font-heading font-bold text-charcoal-900">{t.collectionSub}</h2>
-            </Reveal>
-          </div>
+      {/* ===== FILTER TABS ===== */}
+      <div className="sticky top-16 z-30 bg-ivory-200/90 backdrop-blur-lg border-b border-ivory-500 py-4 px-6">
+        <div className="max-w-[1300px] mx-auto flex gap-3 overflow-x-auto">
+          {categories.map(cat => (
+            <button
+              key={cat.key}
+              id={`filter-${cat.key}`}
+              onClick={() => setFilter(cat.key)}
+              className={`flex-shrink-0 px-5 py-2 rounded-full text-sm font-bold transition-all duration-300 ${
+                filter === cat.key
+                  ? "bg-forest-600 text-white shadow-green-deep"
+                  : "bg-white text-charcoal-700 border border-ivory-500 hover:border-gold-500/40"
+              }`}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+      </div>
 
-          <div className="space-y-32">
-            {rooms.map((room, index) => (
-              <div key={index} className={`flex flex-col ${index % 2 !== 0 ? 'md:flex-row-reverse' : 'md:flex-row'} gap-12 lg:gap-20 items-center`}>
-                <div className="w-full md:w-3/5 overflow-hidden rounded-3xl shadow-xl">
-                  <motion.img 
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 1 }}
-                    src={room.img} 
-                    className="w-full aspect-[4/3] md:aspect-[16/10] object-cover cursor-pointer"
+      {/* ===== ROOMS GRID ===== */}
+      <section className="py-20 px-6">
+        <div className="max-w-[1300px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filtered.map((room, i) => (
+            <Reveal key={room.id} delay={i * 0.08}>
+              <div className="group glass-card rounded-3xl overflow-hidden h-full flex flex-col">
+
+                {/* Room Image */}
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <img
+                    src={room.img}
+                    alt={room.title}
+                    className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700"
                   />
+                  {/* Tag Badge */}
+                  {room.tag && (
+                    <div className="absolute top-4 right-4 bg-gold-500 text-charcoal-900 text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-full tracking-wider shadow">
+                      {room.tag}
+                    </div>
+                  )}
+                  {/* Category */}
+                  <div className="absolute bottom-4 left-4 text-[10px] bg-forest-600/80 backdrop-blur-sm text-white uppercase tracking-widest px-3 py-1 rounded-full font-bold">
+                    {room.category}
+                  </div>
                 </div>
-                <div className="w-full md:w-2/5">
-                  <Reveal>
-                    <div className="flex items-center gap-3 mb-6">
-                        <span className="bg-green-100 text-green-700 text-sm font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">{room.size}</span>
-                        <div className="flex gap-2">
-                          {room.features.map((feat, idx) => (
-                            <span key={idx} className="bg-ivory-400 text-charcoal-800/80 text-xs font-bold px-3 py-1.5 rounded-full">{feat}</span>
-                          ))}
-                        </div>
+
+                {/* Room Info */}
+                <div className="p-6 flex flex-col flex-1">
+                  <h3 className="font-heading font-bold text-xl text-charcoal-900 mb-3">{room.title}</h3>
+
+                  {/* Specs Row */}
+                  <div className="flex items-center gap-4 text-xs text-charcoal-500 mb-4 flex-wrap">
+                    <span className="flex items-center gap-1.5">
+                      <Icon icon="mdi:floor-plan" className="text-gold-500" />{room.size}
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <Icon icon="mdi:window-maximize" className="text-gold-500" />{room.view}
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <Icon icon="mdi:account-group" className="text-gold-500" />
+                      {isArabic ? `حتى ${room.capacity} أشخاص` : `Up to ${room.capacity} guests`}
+                    </span>
+                  </div>
+
+                  {/* Features */}
+                  <ul className="space-y-1.5 mb-5 flex-1">
+                    {room.features.map((f, j) => (
+                      <li key={j} className="flex items-center gap-2 text-sm text-charcoal-600">
+                        <Icon icon="mdi:check-circle" className="text-gold-500 text-base flex-shrink-0" />
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Amenities */}
+                  <div className="flex items-center gap-2 mb-5">
+                    {room.amenities.map((a, j) => (
+                      <div
+                        key={j}
+                        title={a.label}
+                        className="w-8 h-8 rounded-full bg-forest-600/8 flex items-center justify-center hover:bg-forest-600 hover:text-white transition-colors duration-300 group/icon"
+                      >
+                        <Icon icon={a.icon} className="text-forest-600 group-hover/icon:text-white text-base transition-colors duration-300" />
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Price + CTA */}
+                  <div className="flex items-center justify-between pt-4 border-t border-ivory-500">
+                    <div>
+                      <div className="text-xs text-charcoal-400">{isArabic ? "يبدأ من" : "Starting from"}</div>
+                      <div className="text-2xl font-extrabold text-gold-600 font-heading">
+                        <span className="text-sm font-normal">$</span>{room.price}
+                        <span className="text-xs font-normal text-charcoal-400">
+                          {isArabic ? "/ الليلة" : "/ night"}
+                        </span>
+                      </div>
                     </div>
-                    <h3 className="text-4xl font-heading font-bold mb-6 text-charcoal-900">{room.name}</h3>
-                    <p className="text-charcoal-800/70 text-lg leading-relaxed mb-8">
-                      {room.desc}
-                    </p>
-                    <div className="flex items-center gap-3 mb-10 pb-10 border-b border-gray-100">
-                        <span className="text-sm text-charcoal-800/60 uppercase font-bold">{t.from}</span>
-                        <span className="text-3xl font-heading font-bold text-gold-600">{room.price}</span>
-                        <span className="text-sm text-charcoal-800/60 uppercase font-bold">{t.perNight}</span>
-                    </div>
-                    <Link to="/book" className="inline-block px-10 py-4 bg-green-700 text-white font-bold uppercase tracking-wide hover:bg-green-800 transition-colors rounded-full shadow-md">
-                      {t.details}
+                    <Link
+                      to="/book"
+                      id={`room-cta-${room.id}`}
+                      className="btn-gold text-xs px-5 py-2.5 !rounded-xl"
+                    >
+                      {isArabic ? "احجز الآن" : "Book Now"}
                     </Link>
-                  </Reveal>
+                  </div>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ================= AMENITIES GRID ================= */}
-      <section className="py-24 bg-ivory-400 border-t border-gold-500/10">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <Reveal>
-              <span className="text-gold-600 uppercase tracking-widest text-sm font-bold mb-4 block">{t.amenitiesSub}</span>
-              <h2 className="text-4xl font-heading font-bold text-charcoal-900">{t.amenitiesTitle}</h2>
-              <div className="w-16 h-1 bg-green-600 rounded-full mx-auto mt-6" />
             </Reveal>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {amenities.map((item, i) => (
-              <Reveal key={i} delay={i * 0.1}>
-                <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-50 flex items-start gap-4">
-                  <div className="flex-shrink-0 w-12 h-12 bg-green-50 rounded-full flex items-center justify-center">
-                    <Icon icon={item.icon} className="text-green-600 text-2xl" />
-                  </div>
-                  <div>
-                    <h4 className="text-xl font-bold font-heading mb-2 text-charcoal-900">{item.title}</h4>
-                    <p className="text-charcoal-800/70 text-sm leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          ))}
         </div>
       </section>
 
-      {/* ================= CTA ================= */}
-      <section className="py-24 bg-green-900 text-center relative text-white">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb')] bg-cover mix-blend-overlay opacity-10"></div>
-        <div className="relative z-10 px-6">
-          <Reveal>
-            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-8">
-                {isArabic ? "هل ترغب بترتيبات خاصة؟" : "Want Special Arrangements?"}
-            </h2>
-            <p className="max-w-xl mx-auto mb-10 text-white/80 text-lg">
-                {isArabic 
-                    ? "فريق الاستقبال لدينا جاهز لتلبية كافة احتياجاتك لتكون إقامتك مميزة بكل المقاييس." 
-                    : "Our reception team is ready to meet all your needs to make your stay exceptional by all means."
-                }
-            </p>
-            <Link to="/contact" className="inline-block px-12 py-4 bg-gold-500 text-white uppercase text-sm font-bold tracking-widest hover:bg-white hover:text-green-700 transition duration-300 rounded-full shadow-xl hover:shadow-2xl">
-                {isArabic ? "تواصل معنا" : "Contact Us"}
+      {/* ===== BOOKING CTA ===== */}
+      <section className="py-24 bg-forest-600 text-center text-white px-6">
+        <Reveal>
+          <span className="section-label text-gold-400">{isArabic ? "احجز مباشرة" : "Book Direct"}</span>
+          <h2 className="font-heading font-extrabold text-4xl md:text-5xl mt-2 mb-4">
+            {isArabic ? "هل تحتاج مساعدة في اختيار غرفتك؟" : "Need Help Choosing Your Room?"}
+          </h2>
+          <p className="text-white/70 text-lg mb-8 max-w-xl mx-auto">
+            {isArabic
+              ? "فريق الكونسيرج لدينا مستعد على مدار الساعة لمساعدتك في اختيار الإقامة المثالية."
+              : "Our concierge team is available 24/7 to help you find the perfect accommodation."
+            }
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/book" id="rooms-page-book" className="btn-gold inline-flex items-center gap-3 text-sm">
+              <Icon icon="mdi:calendar-check" className="text-lg" />
+              {isArabic ? "احجز الآن" : "Reserve Now"}
             </Link>
-          </Reveal>
-        </div>
+            <a
+              href="https://wa.me/963933123456"
+              target="_blank"
+              rel="noreferrer"
+              id="rooms-page-whatsapp"
+              className="btn-white-glass inline-flex items-center gap-3 text-sm"
+            >
+              <Icon icon="mdi:whatsapp" className="text-lg" />
+              {isArabic ? "استفسر عبر واتساب" : "WhatsApp Inquiry"}
+            </a>
+          </div>
+        </Reveal>
       </section>
     </div>
   );

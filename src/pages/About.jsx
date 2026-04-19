@@ -32,7 +32,7 @@ export default function About({ lang }) {
       <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-green-900/60 z-10" />
         <img 
-          src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb" 
+          src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=900&q=78&fm=webp&auto=format" 
           className="absolute inset-0 w-full h-full object-cover animate-cinematic-zoom"
           alt="Yafour Resort Exterior"
         />
@@ -77,7 +77,7 @@ export default function About({ lang }) {
             <Reveal delay={0.2}>
               <div className="aspect-[4/5] overflow-hidden rounded-3xl shadow-xl border border-ivory-400">
                 <img
-                  src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461"
+                  src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=700&q=78&fm=webp&auto=format"
                   className="w-full h-full object-cover hover:scale-105 transition duration-700"
                   alt="Hotel Interior"
                 />
@@ -95,7 +95,7 @@ export default function About({ lang }) {
 
       {/* ================= STATS ================= */}
       <section className="py-24 bg-green-900 text-white relative">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb')] bg-cover mix-blend-overlay opacity-10"></div>
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1200&q=60&fm=webp&auto=format')] bg-cover mix-blend-overlay opacity-10"></div>
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-12 text-center relative z-10">
           {[
             { label: isArabic ? "غرفة وجناح" : "Rooms & Suites", val: "220" },
@@ -117,8 +117,8 @@ export default function About({ lang }) {
           <div className="order-2 md:order-1">
             <Reveal>
               <div className="grid grid-cols-2 gap-6 relative">
-                <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6" className="w-full aspect-[3/4] object-cover rounded-2xl shadow-lg mt-12" alt="Nature Details" />
-                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c" className="w-full aspect-[3/4] object-cover rounded-2xl shadow-lg relative -top-12 border-4 border-white" alt="Lobby Details" />
+                <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&q=78&fm=webp&auto=format" className="w-full aspect-[3/4] object-cover rounded-2xl shadow-lg mt-12" alt="Nature Details" loading="lazy" decoding="async" />
+                <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&q=78&fm=webp&auto=format" className="w-full aspect-[3/4] object-cover rounded-2xl shadow-lg relative -top-12 border-4 border-white" alt="Lobby Details" loading="lazy" decoding="async" />
               </div>
             </Reveal>
           </div>
